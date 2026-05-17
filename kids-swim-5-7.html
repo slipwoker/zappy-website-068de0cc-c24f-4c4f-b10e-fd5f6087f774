@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>לימוד שחייה לילדים בגילאי 5-7</title>
+    <meta name="description" content="קליפר ספורט ותזונה - לימוד שחייה לילדים בגילאי 5-7">
+    <meta name="keywords" content="">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: '068de0cc-c24f-4c4f-b10e-fd5f6087f774',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="לימוד שחייה לילדים בגילאי 5-7">
+    <meta property="og:description" content="קליפר ספורט ותזונה - לימוד שחייה לילדים בגילאי 5-7">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="לימוד שחייה לילדים בגילאי 5-7">
+    <meta name="twitter:description" content="קליפר ספורט ותזונה - לימוד שחייה לילדים בגילאי 5-7">
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://clipper-sport-vetzuna.zappy5.app#organization","name":"קליפר ספורט ותזונה","url":"https://clipper-sport-vetzuna.zappy5.app","description":"A triathlon, running, and swimming sports club that combines athletic training with personalized nutritional coaching. The business serves both club members and private clients, offering a holistic approach to endurance sports and healthy lifestyle — blending physical performance with dietary guidance tailored to active individuals and athletes.","address":{"@type":"PostalAddress","streetAddress":"ינשוף 7, כרמית"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer service","email":"klippersport@gmail.com","telephone":"0526352667"}]},{"@type":"WebSite","@id":"https://clipper-sport-vetzuna.zappy5.app#website","url":"https://clipper-sport-vetzuna.zappy5.app","name":"קליפר ספורט ותזונה","publisher":{"@id":"https://clipper-sport-vetzuna.zappy5.app#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://clipper-sport-vetzuna.zappy5.app"},{"@type":"ListItem","position":2,"name":"Kids Swim 5 7","item":"https://clipper-sport-vetzuna.zappy5.app/kids-swim-5-7"}]}]}</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:url" content="https://clipper-sport-vetzuna.zappy5.app/kids-swim-5-7">
+    <meta property="og:type" content="article">
+    
+    
+    
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="לימוד שחייה לילדים בגילאי 5-7">
+    <meta property="og:locale" content="en_US">
+    <!-- Twitter Card Meta Tags -->
+    
+    
+    
+    
+    <meta name="twitter:image:alt" content="לימוד שחייה לילדים בגילאי 5-7"><style id="zappy-ai-page-styles">.s57-hero-section {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  background-color: #071624;
+  color: var(--text-light);
+  padding-bottom: 90px;
+  direction: rtl;
+}
+
+/* ── Background Image ── */
+.s57-hero-section .s57-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.s57-hero-section .s57-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  display: block;
+  filter: brightness(0.72) saturate(1.15);
+}
+
+/* ── Scrim ── */
+.s57-hero-section .s57-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(7,22,36,0.88) 0%, rgba(7,22,36,0.65) 55%, rgba(7,22,36,0.18) 100%),
+    linear-gradient(180deg, rgba(7,22,36,0.15) 0%, rgba(7,22,36,0.55) 100%);
+}
+
+/* ── Dot Grid Decoration ── */
+.s57-hero-section .s57-dot-grid {
+  position: absolute;
+  inset-inline-start: 2%;
+  top: 6%;
+  width: 200px;
+  height: 200px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+/* ── Container ── */
+.s57-hero-section .s57-hero-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+}
+
+/* ── Text Block (right) ── */
+.s57-hero-section .s57-hero-content {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: right;
+}
+
+/* Section Label */
+.s57-hero-section .s57-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4FC3D9;
+  font-family: 'Manrope', 'Assistant', sans-serif;
+}
+
+/* H1 */
+.s57-hero-section .s57-hero-h1 {font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--text-light);
+  margin: 0;}
+
+.s57-hero-section .s57-h1-accent {
+  color: #4FC3D9;
+  display: inline;
+}
+
+/* H3 Subtitle */
+.s57-hero-section .s57-hero-h3 {
+  font-family: 'Assistant', 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(247,248,245,0.82);
+  margin: 0;
+  text-shadow: 0 1px 8px rgba(7,22,36,0.4);
+}
+
+/* Benefits Row */
+.s57-hero-section .s57-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  justify-content: flex-start;
+}
+
+.s57-hero-section .s57-benefit-item {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Assistant', 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.s57-hero-section .s57-benefit-item i {
+  color: #4FC3D9;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* CTA Row */
+.s57-hero-section .s57-cta-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.s57-hero-section .s57-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FF8A3D;
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.32s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 8px 28px rgba(255,138,61,0.36);
+  white-space: nowrap;
+}
+
+.s57-hero-section .s57-btn-primary:hover {
+  background: #e87730;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(255,138,61,0.48);
+  color: #ffffff;
+}
+
+.s57-hero-section .s57-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-light);
+  padding: 13px 26px;
+  border-radius: 30px;
+  border: 2px solid rgba(247,248,245,0.65);
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.32s cubic-bezier(0.4,0,0.2,1);
+  white-space: nowrap;
+}
+
+.s57-hero-section .s57-btn-secondary:hover {
+  border-color: #4FC3D9;
+  color: #4FC3D9;
+  transform: translateY(-3px);
+}
+
+/* ── Visual Editorial Frame (left) ── */
+.s57-hero-section .s57-hero-visual {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s57-hero-section .s57-visual-frame {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(79,195,217,0.22);
+  box-shadow: 0 24px 64px rgba(7,22,36,0.38), inset 0 1px 0 rgba(255,255,255,0.08);
+  padding: 36px 32px;
+  overflow: hidden;
+}
+
+.s57-hero-section .s57-visual-frame::before {
+  content: '';
+  position: absolute;
+  inset-inline-end: -30px;
+  bottom: -30px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,195,217,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.s57-hero-section .s57-visual-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.s57-hero-section .s57-visual-badge {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #4FC3D9 0%, #1a8fa0 100%);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 50px;
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  width: fit-content;
+  box-shadow: 0 6px 20px rgba(79,195,217,0.35);
+}
+
+.s57-hero-section .s57-visual-badge i {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.s57-hero-section .s57-visual-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+  padding-inline-start: 8px;
+  border-inline-start: 3px solid rgba(79,195,217,0.4);
+}
+
+.s57-hero-section .s57-visual-stat strong {
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text-light);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.s57-hero-section .s57-visual-stat small {
+  font-family: 'Assistant', 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(247,248,245,0.65);
+  letter-spacing: 0.04em;
+}
+
+/* ── Bottom Wave Divider ── */
+.s57-hero-section .s57-divider-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.s57-hero-section .s57-divider-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .s57-hero-section .s57-hero-container {
+    flex-direction: column;
+    padding: 110px 20px 40px;
+    gap: 32px;
+  }
+
+  .s57-hero-section .s57-hero-content {
+    flex: unset;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .s57-hero-section .s57-hero-visual {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .s57-hero-section .s57-visual-frame {
+    max-width: 100%;
+  }
+
+  .s57-hero-section .s57-visual-inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .s57-hero-section .s57-visual-stat {
+    flex: 1 1 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .s57-hero-section {
+    min-height: unset;
+    padding-bottom: 90px;
+  }
+
+  .s57-hero-section .s57-hero-container {
+    padding: 100px 16px 36px;
+    gap: 28px;
+  }
+
+  .s57-hero-section .s57-hero-h1 {
+    font-size: 2rem;
+  }
+
+  .s57-hero-section .s57-hero-h3 {
+    font-size: 1rem;
+  }
+
+  .s57-hero-section .s57-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .s57-hero-section .s57-btn-primary,
+  .s57-hero-section .s57-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .s57-hero-section .s57-dot-grid {
+    width: 120px;
+    height: 120px;
+    opacity: 0.3;
+  }
+
+  .s57-hero-section .s57-hero-visual {
+    display: none;
+  }
+
+  .s57-hero-section .s57-benefits {
+    gap: 8px 14px;
+  }
+}
+/* ZAPPY_POSTGEN_GUARD_HERO_FONT_CAP:5-7-hero */
+.hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: min(var(--display-xl, 6rem), 6rem) !important; line-height: var(--leading-display, 1.05); }
+@media (max-width: 768px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: clamp(2rem, 9vw, 3rem) !important; }
+}
+
+/* ZAPPY_POSTGEN_GUARD_HERO_TYPO:לימוד שחייה לילדים בגילאי 5-7-hero (5-7-hero) — stripped 1 jarring hero headline effect(s) */
+
+
+.features-57 {
+  background: #F2EFE9;
+  color: var(--text-dark);
+  padding: 80px 24px 100px;
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+  font-family: 'Assistant', 'Manrope', 'Inter', sans-serif;
+}
+
+/* Dot-grid decorative motif */
+.features-57__dot-grid {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 200px;
+  height: 200px;
+  background-image: radial-gradient(circle, rgba(27,168,160,0.10) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+  pointer-events: none;
+  z-index: 0;
+  aria-hidden: true;
+}
+
+.features-57__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.features-57__header {
+  text-align: right;
+  margin-bottom: 48px;
+  max-width: 680px;
+}
+
+.features-57__label {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1BA8A0;
+  margin-bottom: 12px;
+}
+
+.features-57__title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--text-dark);
+  margin: 0 0 16px 0;
+}
+
+.features-57__intro {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 580px;
+}
+
+/* Grid */
+.features-57__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+  direction: rtl;
+}
+
+/* Cards */
+.features-57__card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(10,31,46,0.08);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.features-57__card:hover {
+  box-shadow: 0 16px 48px rgba(10,31,46,0.14);
+  transform: translateY(-2px);
+}
+
+/* Aqua accent line at top of each card */
+.features-57__card-accent-line {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #1BA8A0 40%, #4FC3D9 100%);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Wide card spans full row */
+.features-57__card--wide {
+  grid-column: 1 / -1;
+}
+
+.features-57__card-annotation {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1BA8A0;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
+
+.features-57__card-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 14px 0;
+}
+
+.features-57__card-text {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Wide card inner layout */
+.features-57__card-wide-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.features-57__card-wide-text {
+  flex: 1 1 55%;
+  min-width: 0;
+}
+
+.features-57__card-wide-highlights {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-inline-start: 32px;
+  border-inline-start: 1px solid var(--border-light);
+  min-width: 240px;
+}
+
+.features-57__highlight-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  text-align: right;
+}
+
+.features-57__highlight-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1BA8A0;
+  flex-shrink: 0;
+}
+
+.features-57__highlight-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+/* Responsive — tablet/mobile */
+@media (max-width: 900px) {
+  .features-57__card-wide-inner {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .features-57__card-wide-highlights {
+    border-inline-start: none;
+    border-top: 1px solid var(--border-light);
+    padding-inline-start: 0;
+    padding-top: 24px;
+    min-width: unset;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-57 {
+    padding: 60px 16px 72px;
+  }
+
+  .features-57__header {
+    margin-bottom: 32px;
+  }
+
+  .features-57__title {
+    font-size: 1.75rem;
+  }
+
+  .features-57__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .features-57__card--wide {
+    grid-column: 1 / -1;
+  }
+
+  .features-57__card {
+    padding: 24px 20px;
+  }
+
+  .features-57__dot-grid {
+    width: 120px;
+    height: 120px;
+    top: 20px;
+    left: 10px;
+  }
+
+  .features-57__card-wide-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .features-57__card-wide-highlights {
+    border-inline-start: none;
+    border-top: 1px solid var(--border-light);
+    padding-inline-start: 0;
+    padding-top: 20px;
+    min-width: unset;
+  }
+
+  .features-57__highlight-item {
+    gap: 10px;
+  }
+}
+
+.5-7-about-section {
+  background: #F2EFE9;
+  color: var(--text-dark);
+  position: relative;
+  overflow: visible;
+  padding: 120px 24px 80px;
+  direction: rtl;
+}
+
+/* Dot grid decoration */
+.5-7-about-section .about-dot-grid {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 60px;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+/* Topo line bottom */
+.5-7-about-section .about-topo-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.5-7-about-section .about-topo-bottom svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Container */
+.5-7-about-section .about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Asymmetric grid: 6:4 ratio, RTL — text on right, image on left */
+.5-7-about-section .about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  direction: rtl;
+}
+
+@media (min-width: 768px) {
+  .5-7-about-section .about-grid {
+    grid-template-columns: 3fr 2fr;
+    gap: 64px;
+    align-items: start;
+  }
+}
+
+/* ── RIGHT COLUMN: Content ── */
+.5-7-about-section .about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.5-7-about-section .about-label {
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  display: inline-block;
+  border-bottom: 2px solid var(--secondary);
+  padding-bottom: 4px;
+  text-align: start;
+}
+
+.5-7-about-section .about-heading {
+  font-family: 'Manrope', 'Inter', 'Assistant', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin: 0;
+  text-align: start;
+}
+
+@media (min-width: 768px) {
+  .5-7-about-section .about-heading {
+    font-size: 2.25rem;
+  }
+}
+
+.5-7-about-section .about-body {
+  color: var(--text-dark);
+  line-height: 1.75;
+  margin: 0;
+  text-align: start;
+  font-family: 'Assistant', 'Inter', sans-serif;
+}
+
+/* Feature list */
+.5-7-about-section .about-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.5-7-about-section .about-feature-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  align-items: start;
+  direction: rtl;
+}
+
+.5-7-about-section .feature-icon-wrap {
+  width: 44px;
+  height: 44px;
+  background: var(--primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  flex-shrink: 0;
+}
+
+.5-7-about-section .feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: start;
+}
+
+.5-7-about-section .feature-text strong {
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+.5-7-about-section .feature-text span {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-family: 'Assistant', 'Inter', sans-serif;
+}
+
+/* ── LEFT COLUMN: Visual ── */
+.5-7-about-section .about-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Image wrapper with thin border frame effect */
+.5-7-about-section .about-image-wrap {
+  position: relative;
+  display: block;
+}
+
+.5-7-about-section .about-main-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 0;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 16px 48px rgba(10, 31, 46, 0.14);
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative offset border accent */
+.5-7-about-section .image-accent-border {
+  position: absolute;
+  inset-inline-end: -10px;
+  bottom: -10px;
+  width: 60%;
+  height: 60%;
+  border: 2px solid var(--secondary);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Secondary text block below image */
+.5-7-about-section .about-secondary-block {
+  background: #fff;
+  border-inline-start: 3px solid var(--accent);
+  padding: 20px 22px;
+  box-shadow: 0 8px 32px rgba(10, 31, 46, 0.08);
+}
+
+.5-7-about-section .about-secondary-heading {
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+  text-align: start;
+}
+
+.5-7-about-section .about-secondary-text {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+  text-align: start;
+  font-family: 'Assistant', 'Inter', sans-serif;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 767px) {
+  .5-7-about-section {
+    padding: 100px 16px 60px;
+  }
+
+  .5-7-about-section .about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .5-7-about-section .about-heading {
+    font-size: 1.6rem;
+  }
+
+  .5-7-about-section .about-dot-grid {
+    width: 120px;
+    height: 120px;
+    top: 20px;
+  }
+
+  .5-7-about-section .image-accent-border {
+    display: none;
+  }
+
+  .5-7-about-section .about-feature-item {
+    grid-template-columns: 40px 1fr;
+    gap: 10px;
+  }
+
+  .5-7-about-section .feature-icon-wrap {
+    width: 40px;
+    height: 40px;
+  }
+
+  .5-7-about-section .about-secondary-block {
+    padding: 16px 16px;
+  }
+}
+
+.5-7-faq-section {
+  position: relative;
+  background-color: #071624;
+  background-image: linear-gradient(180deg, #0A1F2E 0%, #071624 100%);
+  color: var(--text-light);
+  padding: 100px 24px 120px;
+  overflow: visible;
+  direction: rtl;
+}
+
+.5-7-faq-section .faq-57__contour {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.5-7-faq-section .faq-57__contour svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.5-7-faq-section .faq-57__container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+.5-7-faq-section .faq-57__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.5-7-faq-section .faq-57__label {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  background: rgba(79, 195, 217, 0.1);
+  border: 1px solid rgba(79, 195, 217, 0.25);
+  border-radius: 100px;
+  padding: 5px 18px;
+  margin-bottom: 20px;
+}
+
+.5-7-faq-section .faq-57__title {
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--text-light);
+  margin: 0 auto 20px;
+  max-width: 680px;
+  letter-spacing: -0.01em;
+}
+
+.5-7-faq-section .faq-57__intro {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: rgba(247, 248, 245, 0.72);
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* FAQ List */
+.5-7-faq-section .faq-57__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.5-7-faq-section .faq-57__item {
+  padding: 28px 0;
+  position: relative;
+}
+
+.5-7-faq-section .faq-57__question {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 14px;
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-light);
+  margin: 0 0 14px;
+  text-align: right;
+}
+
+.5-7-faq-section .faq-57__q-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(79, 195, 217, 0.15);
+  border: 1px solid rgba(79, 195, 217, 0.35);
+  color: var(--secondary);
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-style: normal;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.5-7-faq-section .faq-57__answer {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: rgba(247, 248, 245, 0.70);
+  margin: 0;
+  padding-inline-start: 42px;
+  text-align: right;
+}
+
+.5-7-faq-section .faq-57__divider {
+  margin-top: 28px;
+  height: 1px;
+  background: linear-gradient(
+    to left,
+    rgba(79, 195, 217, 0.3) 0%,
+    rgba(79, 195, 217, 0.08) 60%,
+    transparent 100%
+  );
+  border: none;
+}
+
+/* Footer CTA area */
+.5-7-faq-section .faq-57__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 72px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(79, 195, 217, 0.12);
+  text-align: center;
+}
+
+.5-7-faq-section .faq-57__footer-text {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(247, 248, 245, 0.65);
+  margin: 0;
+  text-align: center;
+}
+
+.5-7-faq-section .faq-57__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 30px;
+  border: none;
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+  box-shadow: 0 8px 28px rgba(255, 138, 61, 0.30);
+}
+
+.5-7-faq-section .faq-57__cta:hover {
+  background: #e67a2e;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(255, 138, 61, 0.42);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .5-7-faq-section {
+    padding: 120px 48px 140px;
+  }
+
+  .5-7-faq-section .faq-57__title {
+    font-size: 2.4rem;
+  }
+
+  .5-7-faq-section .faq-57__header {
+    margin-bottom: 72px;
+  }
+
+  .5-7-faq-section .faq-57__item {
+    padding: 32px 0;
+  }
+
+  .5-7-faq-section .faq-57__question {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .5-7-faq-section {
+    padding: 80px 16px 100px;
+  }
+
+  .5-7-faq-section .faq-57__header {
+    margin-bottom: 48px;
+  }
+
+  .5-7-faq-section .faq-57__title {
+    font-size: 1.6rem;
+  }
+
+  .5-7-faq-section .faq-57__question {
+    font-size: 1.05rem;
+    gap: 10px;
+  }
+
+  .5-7-faq-section .faq-57__answer {
+    padding-inline-start: 38px;
+  }
+
+  .5-7-faq-section .faq-57__item {
+    padding: 22px 0;
+  }
+
+  .5-7-faq-section .faq-57__footer {
+    margin-top: 48px;
+    padding-top: 36px;
+  }
+}
+
+.5-7-cta-section {
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+  background-color: #071624;
+  background-image:
+    radial-gradient(ellipse 60% 80% at 30% 50%, rgba(27, 168, 160, 0.09) 0%, transparent 70%),
+    linear-gradient(180deg, #0A1F2E 0%, #071624 100%);
+  color: var(--text-light);
+  padding: 80px 32px 88px;
+}
+
+.5-7-cta-section .cta-mountain-accent {
+  position: absolute;
+  bottom: 24px;
+  left: 40px;
+  width: 180px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.5-7-cta-section .cta-glow-orb {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 520px;
+  height: 260px;
+  background: radial-gradient(ellipse at center, rgba(79, 195, 217, 0.10) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+.5-7-cta-section .cta-inner-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.5-7-cta-section .cta-top-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to left, rgba(79, 195, 217, 0.45) 0%, rgba(79, 195, 217, 0.08) 100%);
+  margin-bottom: 48px;
+}
+
+.5-7-cta-section .cta-content {
+  text-align: right;
+  max-width: 680px;
+  margin-inline-start: 0;
+}
+
+.5-7-cta-section .cta-label {
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.5-7-cta-section .cta-heading {
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-light);
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.5-7-cta-section .cta-body {
+  font-family: 'Assistant', 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(247, 248, 245, 0.78);
+  margin-bottom: 36px;
+  max-width: 580px;
+}
+
+.5-7-cta-section .cta-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.5-7-cta-section .btn-primary.cta-btn-main {
+  background: #F5A623;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: none;
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+  box-shadow: 0 4px 18px rgba(245, 166, 35, 0.28);
+}
+
+.5-7-cta-section .btn-primary.cta-btn-main:hover {
+  background: #e8941a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(245, 166, 35, 0.38);
+}
+
+.5-7-cta-section .btn-secondary.cta-btn-ghost {
+  background: transparent;
+  color: var(--text-light);
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: 2px solid rgba(247, 248, 245, 0.55);
+  font-family: 'Manrope', 'Assistant', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease, transform 0.18s ease;
+}
+
+.5-7-cta-section .btn-secondary.cta-btn-ghost:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+  background: rgba(79, 195, 217, 0.07);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .5-7-cta-section {
+    padding: 56px 16px 64px;
+  }
+
+  .5-7-cta-section .cta-inner-container {
+    padding: 0;
+  }
+
+  .5-7-cta-section .cta-top-rule {
+    margin-bottom: 32px;
+  }
+
+  .5-7-cta-section .cta-heading {
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+
+  .5-7-cta-section .cta-body {
+    max-width: 100%;
+  }
+
+  .5-7-cta-section .cta-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .5-7-cta-section .btn-primary.cta-btn-main,
+  .5-7-cta-section .btn-secondary.cta-btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .5-7-cta-section .cta-mountain-accent {
+    width: 120px;
+    height: 80px;
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .5-7-cta-section .cta-glow-orb {
+    width: 280px;
+    height: 180px;
+  }
+}
+
+@media (min-width: 769px) {
+  .5-7-cta-section .cta-heading {
+    font-size: 2.2rem;
+  }
+}</style>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-light) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-light) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-light) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="0526352667" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/site-----image-1.webp" alt="קליפר ספורט ותזונה"></a>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/">בית</a></li><li><a href="/programs">תוכניות וליווי</a></li><li><a href="/about">אודות</a></li><li><a href="/kids-swim-5-7" class="nav-link">שחיית ילדים</a></li></ul></div>
+
+    
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-light)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '0526352667';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main" class="blog-page ai-generated-page"><section class="s57-hero-section" data-layout-spec="לימוד שחייה לילדים בגילאי 5-7-hero" dir="rtl" data-hero-type="fullscreen-scrim">
+  <!-- Background Image Layer -->
+  <div class="s57-hero-bg">
+    <img data-hero-bg="true" data-context="A bright, inviting swimming pool at a sports club during a calm morning. Sunlight streams across the water surface creating beautiful caustic light patterns. The pool is clean and modern with lane markers. The mood is warm, safe, and inspiring — evoking the joy of learning to swim. Shot from a low angle near the pool edge, with gentle reflections and a serene atmosphere. No people visible — the focus is on the water and light." width="1440" height="900" src="/assets/sports-club-nutrition-coaching-section-hero-5-7-hero-image-1.webp" alt="בריכת שחייה מוארת באור בוקר">
+  </div>
+
+  <!-- Scrim Overlay -->
+  <div class="s57-hero-scrim" aria-hidden="true"></div>
+
+  <!-- Dot Grid Decorative Motif -->
+  <svg class="s57-dot-grid" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="dotPattern57" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.5" fill="#4FC3D9" opacity="0.18"></circle>
+      </pattern>
+    </defs>
+    <rect width="200" height="200" fill="url(#dotPattern57)"></rect>
+  </svg>
+
+  <!-- Main Content Container -->
+  <div class="s57-hero-container">
+
+    <!-- Right: Text Block -->
+    <div class="s57-hero-content">
+      <span class="s57-label">קליפר ספורט ותזונה — תוכנית ילדים</span>
+
+      <h1 class="s57-hero-h1">שחייה ראשונה —<br><span class="s57-h1-accent">הצעד הגדול של הקטנים</span></h1>
+
+      <h3 class="s57-hero-h3">תוכנית לימוד שחייה מותאמת לגילאי 5–7, בסביבה בטוחה, עם מדריכים מוסמכים שמאמינים בכל ילד</h3>
+
+      <div class="s57-benefits">
+        <span class="s57-benefit-item"><i class="fa-solid fa-check"></i> קבוצות קטנות</span>
+        <span class="s57-benefit-item"><i class="fa-solid fa-check"></i> מדריכים מוסמכים</span>
+        <span class="s57-benefit-item"><i class="fa-solid fa-check"></i> התקדמות אישית</span>
+        <span class="s57-benefit-item"><i class="fa-solid fa-check"></i> בריכה מחוממת</span>
+      </div>
+
+      <div class="s57-cta-row">
+        <a href="/contact" class="s57-btn-primary">צרו קשר עכשיו <i class="fa-solid fa-arrow-left"></i></a>
+        <a href="/programs" class="s57-btn-secondary">לתוכניות שלנו</a>
+      </div>
+    </div>
+
+    <!-- Left: Visual Editorial Frame (decorative image frame) -->
+    <div class="s57-hero-visual" aria-hidden="true">
+      <div class="s57-visual-frame">
+        <div class="s57-visual-inner">
+          <div class="s57-visual-badge">
+            <i class="fa-solid fa-water"></i>
+            <span>גיל 5–7</span>
+          </div>
+          <div class="s57-visual-stat">
+            <strong>12+</strong>
+            <small>שנות ניסיון</small>
+          </div>
+          <div class="s57-visual-stat">
+            <strong>500+</strong>
+            <small>ילדים בוגרים</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Wave Divider -->
+  <div class="s57-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,90 L0,48 Q120,28 240,45 T480,38 Q600,48 720,35 T960,42 Q1080,30 1200,44 T1440,40 L1440,90 Z" fill="#F7F8F5"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="features-57" data-layout-spec="לימוד שחייה לילדים בגילאי 5-7-features" dir="rtl">
+  <!-- Dot-grid decorative motif -->
+  <div class="features-57__dot-grid" aria-hidden="true"></div>
+
+  <div class="features-57__container">
+    <!-- Section header -->
+    <div class="features-57__header">
+      <small class="features-57__label">תוכנית ייחודית לגיל הרך</small>
+      <h2 class="features-57__title">מה מקבלים ילדי גיל 5–7 בקליפר?</h2>
+      <p class="features-57__intro">הגישה שלנו מותאמת במיוחד לשלב ההתפתחותי הרגיש הזה — שילוב של ביטחון במים, כיף אמיתי ויסודות שחייה נכונים שישארו לכל החיים.</p>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="features-57__grid">
+
+      <!-- Card 1 -->
+      <article class="features-57__card">
+        <div class="features-57__card-accent-line" aria-hidden="true"></div>
+        <small class="features-57__card-annotation">ביטחון ובטיחות</small>
+        <h3 class="features-57__card-title">כניסה בטוחה ומדורגת למים</h3>
+        <p class="features-57__card-text">הילדים מתחילים בהיכרות עדינה עם הסביבה המימית — ממגע ראשוני ועד צלילה קצרה. כל שלב מותאם לקצב האישי של הילד, ללא לחץ וללא חרדה.</p>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="features-57__card">
+        <div class="features-57__card-accent-line" aria-hidden="true"></div>
+        <small class="features-57__card-annotation">מיומנויות יסוד</small>
+        <h3 class="features-57__card-title">טכניקת שחייה נכונה מגיל צעיר</h3>
+        <p class="features-57__card-text">מדריכינו המוסמכים מלמדים נשימה, ציפה ותנועת גפיים בצורה שמתאימה לגוף ולמח הילד בגיל זה — כך שהגוף לומד נכון מהרגע הראשון.</p>
+      </article>
+
+      <!-- Card 3 — full width -->
+      <article class="features-57__card features-57__card--wide">
+        <div class="features-57__card-accent-line" aria-hidden="true"></div>
+        <div class="features-57__card-wide-inner">
+          <div class="features-57__card-wide-text">
+            <small class="features-57__card-annotation">חוויה ומוטיבציה</small>
+            <h3 class="features-57__card-title">שיעורים שמחים שהילדים מחכים להם</h3>
+            <p class="features-57__card-text">אנחנו מאמינים שלמידה הכי טובה קורית כשהילד בא בשמחה. השיעורים בנויים סביב משחקים, אתגרים קטנים ורגעי הצלחה שמייצרים אהבה אמיתית לספורט מים — בסיס לאורח חיים פעיל ובריא לשנים קדימה.</p>
+          </div>
+          <div class="features-57__card-wide-highlights">
+            <div class="features-57__highlight-item">
+              <span class="features-57__highlight-icon" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path><path d="M8 12l3 3 5-5"></path></svg>
+              </span>
+              <span class="features-57__highlight-text">קבוצות קטנות עד 6 ילדים</span>
+            </div>
+            <div class="features-57__highlight-item">
+              <span class="features-57__highlight-icon" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path><path d="M8 12l3 3 5-5"></path></svg>
+              </span>
+              <span class="features-57__highlight-text">מדריכים מוסמכים ומנוסים</span>
+            </div>
+            <div class="features-57__highlight-item">
+              <span class="features-57__highlight-icon" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path><path d="M8 12l3 3 5-5"></path></svg>
+              </span>
+              <span class="features-57__highlight-text">דוח התקדמות חודשי להורים</span>
+            </div>
+            <div class="features-57__highlight-item">
+              <span class="features-57__highlight-icon" aria-hidden="true">
+                <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path><path d="M8 12l3 3 5-5"></path></svg>
+              </span>
+              <span class="features-57__highlight-text">בריכה מחוממת ומאובטחת</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="5-7-about-section" data-layout-spec="לימוד שחייה לילדים בגילאי 5-7-about" dir="rtl">
+
+  <!-- Decorative dot-grid top-left -->
+  <div class="about-dot-grid" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dotGrid5-7" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+          <circle cx="3" cy="3" r="1.8" fill="#4FC3D9" opacity="0.18"></circle>
+        </pattern>
+      </defs>
+      <rect width="180" height="180" fill="url(#dotGrid5-7)"></rect>
+    </svg>
+  </div>
+
+  <div class="about-container">
+    <div class="about-grid">
+
+      <!-- RIGHT: Main content block -->
+      <div class="about-content">
+        <span class="about-label">הסביבה שלנו</span>
+        <h2 class="about-heading">בריכה פרטית, שקטה ומותאמת לילדים קטנים</h2>
+        <p class="about-body">בקליפר ספורט ותזונה אנו מאמינים שהצלחת הלמידה בגיל הרך תלויה לא רק במאמן — אלא גם בסביבה. הילדים שלנו בגילאי 5–7 לומדים לשחות בבריכה פרטית, שקטה ומוגנת, רחוקה מהעומס והרעש של מתקנים ציבוריים. כאן כל ילד מקבל את המרחב הנפשי להתנסות, להרגיש בטוח ולהתקדם בקצב שלו.</p>
+        <p class="about-body">הסביבה המוכרת והאינטימית מאפשרת לנו לבנות קשר אמיתי עם כל ילד וילד, ולהתאים את שיטת ההוראה לאישיות ולצרכים הייחודיים שלו. פחות ילדים בכל קבוצה, יותר תשומת לב — זו הנוסחה שלנו.</p>
+
+        <div class="about-features">
+          <div class="about-feature-item">
+            <div class="feature-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <div class="feature-text">
+              <strong>סביבה בטוחה ומוגנת</strong>
+              <span>בריכה פרטית עם פיקוח מלא לאורך כל השיעור</span>
+            </div>
+          </div>
+          <div class="about-feature-item">
+            <div class="feature-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+            </div>
+            <div class="feature-text">
+              <strong>קבוצות קטנות</strong>
+              <span>עד 4 ילדים בכל קבוצה לתשומת לב מקסימלית</span>
+            </div>
+          </div>
+          <div class="about-feature-item">
+            <div class="feature-icon-wrap">
+              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <div class="feature-text">
+              <strong>מאמנים מוסמכים</strong>
+              <span>מומחים בהוראת שחייה לגיל הרך עם ניסיון רב</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEFT: Image + secondary text block -->
+      <div class="about-visual">
+        <div class="about-image-wrap">
+          <img data-context="Young children aged 5-7 learning to swim in a calm, private outdoor pool with a professional swim coach. The children are wearing colorful swimsuits and swim caps, smiling and splashing in shallow water. The pool is small and intimate, surrounded by greenery, with clear blue water. Warm golden morning light. Premium sports club feel, safe and joyful learning environment." width="600" height="440" src="/assets/sports-club-nutrition-coaching-section-about-5-7-about-image-1.webp" alt="ילדים לומדים שחייה בבריכה פרטית שקטה עם מאמן מוסמך" class="about-main-image">
+          <div class="image-accent-border" aria-hidden="true"></div>
+        </div>
+
+        <!-- Secondary text block below image -->
+        <div class="about-secondary-block">
+          <h3 class="about-secondary-heading">הגישה שלנו: סבלנות, שמחה, ביטחון</h3>
+          <p class="about-secondary-text">כל שיעור מתוכנן כהרפתקה קטנה — לא רק לימוד טכניקה, אלא בניית אהבה למים לכל החיים. אנו משלבים משחק ותנועה עם עקרונות פדגוגיים מוכחים לגיל הרך.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Decorative topographic line bottom -->
+  <div class="about-topo-bottom" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="60">
+      <path d="M0,30 Q80,18 160,30 T320,28 Q400,38 480,26 T640,32 Q720,20 800,30 T960,26 Q1040,36 1120,28 T1200,30" stroke="#4FC3D9" stroke-width="1.2" fill="none" opacity="0.18"></path>
+      <path d="M0,42 Q100,30 200,42 T400,38 Q500,50 600,36 T800,44 Q900,32 1000,42 T1200,40" stroke="#4FC3D9" stroke-width="0.8" fill="none" opacity="0.10"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="faq-57 5-7-faq-section" data-layout-spec="לימוד שחייה לילדים בגילאי 5-7-faq" dir="rtl">
+  <!-- Contour lines background decoration -->
+  <div class="faq-57__contour" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1100 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="rgba(79,195,217,0.07)" stroke-width="1.5">
+        <path d="M-50,120 Q150,100 300,130 T600,110 T950,125 T1200,108"></path>
+        <path d="M-50,190 Q180,165 350,195 T680,175 T1000,190 T1250,172"></path>
+        <path d="M-50,265 Q120,240 290,268 T620,248 T930,265 T1200,250"></path>
+        <path d="M-50,340 Q200,315 370,342 T700,322 T1020,340 T1250,325"></path>
+        <path d="M-50,415 Q160,390 320,418 T650,398 T980,415 T1200,400"></path>
+        <path d="M-50,490 Q190,465 360,492 T690,472 T1010,490 T1250,474"></path>
+        <path d="M-50,55 Q170,35 330,58 T660,42 T990,56 T1200,40"></path>
+        <path d="M-50,560 Q140,540 310,562 T640,548 T970,560 T1200,545"></path>
+      </g>
+    </svg>
+  </div>
+
+  <div class="faq-57__container">
+    <!-- Header -->
+    <header class="faq-57__header">
+      <span class="faq-57__label">שאלות נפוצות</span>
+      <h2 class="faq-57__title">כל מה שרצית לדעת על לימוד שחייה לגיל 5–7</h2>
+      <p class="faq-57__intro">הבנו שלהורים יש המון שאלות לפני שמתחילים. ריכזנו כאן את השאלות שאנחנו שומעים הכי הרבה — עם תשובות כנות ומפורטות, כי השקיפות חשובה לנו לא פחות מהשחייה עצמה.</p>
+    </header>
+
+    <!-- FAQ Items -->
+    <div class="faq-57__list">
+
+      <article class="faq-57__item">
+        <h3 class="faq-57__question">
+          <span class="faq-57__q-icon" aria-hidden="true">?</span>
+          מה הגיל המינימלי להצטרפות לשיעורים?
+        </h3>
+        <p class="faq-57__answer">השיעורים בקבוצה זו מיועדים לילדים בגילאי 5 עד 7 שנים. בגיל זה הילדים מוכנים קוגניטיבית ופיזית לקבל הוראה מובנית בבריכה, ומסוגלים לעקוב אחר הנחיות המאמן ולהתקדם בקצב מדוד ובטוח. אם ילדכם טרם מלאו לו 5, נשמח לרשום אותו לרשימת ההמתנה.</p>
+        <div class="faq-57__divider" aria-hidden="true"></div>
+      </article>
+
+      <article class="faq-57__item">
+        <h3 class="faq-57__question">
+          <span class="faq-57__q-icon" aria-hidden="true">?</span>
+          האם הילד שלי צריך לדעת לשחות לפני שמצטרפים?
+        </h3>
+        <p class="faq-57__answer">לא בהכרח. הקבוצה מחולקת לפי רמות — מתחילים מוחלטים שמתוודעים למים לראשונה, ועד ילדים שכבר מרגישים בנוח במים ורוצים לרכוש טכניקה נכונה. בשיעור ההיכרות הראשון, המאמן מעריך את רמת הילד ומשבץ אותו לקבוצה המתאימה לו ביותר.</p>
+        <div class="faq-57__divider" aria-hidden="true"></div>
+      </article>
+
+      <article class="faq-57__item">
+        <h3 class="faq-57__question">
+          <span class="faq-57__q-icon" aria-hidden="true">?</span>
+          כמה ילדים יש בכל קבוצה?
+        </h3>
+        <p class="faq-57__answer">אנחנו שומרים על יחס מאמן-ילד של 1:4 לכל היותר. בגיל הרך, תשומת לב אישית היא לא בונוס — היא הכרחית לבטיחות ולהתקדמות. קבוצות קטנות מאפשרות למאמן לראות כל ילד, לתקן בזמן אמת, ולבנות ביטחון אצל כל אחד בקצבו שלו.</p>
+        <div class="faq-57__divider" aria-hidden="true"></div>
+      </article>
+
+      <article class="faq-57__item">
+        <h3 class="faq-57__question">
+          <span class="faq-57__q-icon" aria-hidden="true">?</span>
+          מה קורה אם הילד מפחד מהמים?
+        </h3>
+        <p class="faq-57__answer">פחד מהמים הוא תופעה נפוצה לחלוטין בגיל הזה, ואנחנו מתמחים בדיוק בזה. המאמנים שלנו עברו הכשרה בגישה הדרגתית ורגישה — מתחילים מהשוליים, עוברים לרגלות, ובונים ביטחון שלב אחר שלב. אין לחץ, אין מהירות, ואין ילד שמוצא את עצמו במצב שמאיים עליו. הורים רבים מתפלאים כמה מהר הפחד הופך לאהבת המים.</p>
+        <div class="faq-57__divider" aria-hidden="true"></div>
+      </article>
+
+      <article class="faq-57__item">
+        <h3 class="faq-57__question">
+          <span class="faq-57__q-icon" aria-hidden="true">?</span>
+          מה צריך להביא לשיעור?
+        </h3>
+        <p class="faq-57__answer">בגד ים (חד-חתיכה לבנות מומלץ), מגבת, נעלי בריכה, ומשקפי שחייה. כובע שחייה ניתן לרכוש אצלנו בעלות סמלית. מומלץ להגיע 10 דקות לפני השיעור כדי לאפשר לילד להתלבש ברוגע ולהסתגל לסביבה. שתייה חשובה — בקבוק מים אישי הכרחי.</p>
+        <div class="faq-57__divider" aria-hidden="true"></div>
+      </article>
+
+      <article class="faq-57__item">
+        <h3 class="faq-57__question">
+          <span class="faq-57__q-icon" aria-hidden="true">?</span>
+          כמה זמן עד שרואים התקדמות?
+        </h3>
+        <p class="faq-57__answer">רוב הילדים מראים שינוי ניכר כבר לאחר 4–6 שיעורים — בעיקר בביטחון ובנכונות להיכנס למים. התקדמות טכנית משמעותית, כמו שחייה עצמאית בסגנון חתירה בסיסי, מושגת בדרך כלל תוך 3–4 חודשים של שיעורים שבועיים. כל ילד הוא עולם בפני עצמו, ואנחנו מתאימים את הקצב לו — לא ללוח זמנים שרירותי.</p>
+      </article>
+
+    </div>
+
+    <!-- Bottom spacer CTA hint -->
+    <div class="faq-57__footer">
+      <p class="faq-57__footer-text">יש לכם שאלה שלא מצאתם כאן? אנחנו כאן בשבילכם.</p>
+      <a href="#contact" class="faq-57__cta btn-primary">דברו איתנו</a>
+    </div>
+  </div>
+</section>
+
+<section class="5-7-cta-section" data-layout-spec="לימוד שחייה לילדים בגילאי 5-7-cta" dir="rtl">
+  <!-- Decorative mountain outline accent -->
+  <svg class="cta-mountain-accent" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <polyline points="20,100 70,30 120,70 160,20 200,60" fill="none" stroke="#1BA8A0" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.18"></polyline>
+    <polyline points="0,110 55,45 100,80 145,35 180,65" fill="none" stroke="#1BA8A0" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.10"></polyline>
+  </svg>
+
+  <!-- Aqua glow orb -->
+  <div class="cta-glow-orb" aria-hidden="true"></div>
+
+  <div class="cta-inner-container">
+    <!-- Thin horizontal rule -->
+    <div class="cta-top-rule" aria-hidden="true"></div>
+
+    <div class="cta-content">
+      <p class="cta-label">לימוד שחייה לילדים</p>
+      <h2 class="cta-heading">מוכנים לצאת לדרך?<br>נתחיל יחד עוד השבוע</h2>
+      <p class="cta-body">הילד/ה שלכם יכולים ללמוד לשחות בסביבה בטוחה, מקצועית ומהנה. הצוות שלנו בקליפר ספורט ותזונה מלווה ילדים בגילאי 5–7 עם גישה סבלנית ומותאמת אישית — כי כל ילד מתקדם בקצב שלו.</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="btn-primary cta-btn-main">
+          <i class="fa-solid fa-arrow-left"></i>
+          לצור קשר ולהרשמה
+        </a>
+        <a href="/about" class="btn-secondary cta-btn-ghost">קראו עוד על השיטה שלנו</a>
+      </div>
+    </div>
+  </div>
+</section></main>
+  
+  <footer class="site-footer" dir="rtl" aria-label="כותרת תחתונה של האתר"> <div class="footer-container"> <!-- Top Grid --> <div class="footer-top"> <!-- Column 1: Company Info --> <div class="footer-col footer-brand"> <img src="/assets/sports-club-nutrition-coaching-logo.webp" alt="קליפר ספורט ותזונה" class="logo"> <p class="footer-tagline">מסע הביצועים שלך מתחיל כאן — אימון סיבולת, שחייה, ריצה ותזונה מקצועית תחת קורת גג אחת.</p> <div class="footer-social" aria-label="רשתות חברתיות" style="display:none;">    </div> </div> <!-- Column 2: Quick Links --> <div class="footer-col"> <h3 class="footer-heading"><span class="heading-accent"></span>ניווט מהיר</h3> <ul class="footer-links" aria-label="קישורים מהירים"> <li><a href="/">בית</a></li> <li><a href="/programs">תוכניות וליווי</a></li> <li><a href="/about">אודות</a></li> <li><a href="/contact">צור קשר</a></li> </ul> </div> <!-- Column 3: Contact --> <div class="footer-col"> <h3 class="footer-heading"><span class="heading-accent"></span>יצירת קשר</h3> <ul class="footer-contact" aria-label="פרטי יצירת קשר"> <li> <span class="contact-icon"><i class="fas fa-envelope"></i></span> <span class="contact-text"><a href="mailto:klippersport@gmail.com">klippersport@gmail.com</a></span> </li> <li> <span class="contact-icon"><i class="fas fa-phone"></i></span> <span class="contact-text"><a href="tel:0526352667">0526352667</a></span> </li> <li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span> <span class="contact-text">ינשוף 7, כרמית</span></a></li> </ul> </div> <!-- Column 4: Hours --> <div class="footer-col"> <h3 class="footer-heading"><span class="heading-accent"></span>שעות פעילות</h3> <ul class="footer-hours" aria-label="שעות פעילות"> <li><a href="/"><span class="day">ראשון – חמישי</span><span class="time">06:00 – 21:00</span></a></li> <li><a href="/"><span class="day">שישי</span><span class="time">06:00 – 15:00</span></a></li> <li><a href="/"><span class="day">שבת</span><span class="time closed">סגור</span></a></li> </ul> <div class="footer-badge"><i class="fas fa-bolt"></i> ייעוץ תזונה זמין 24/7</div> </div> </div> <!-- Divider --> <div class="footer-divider" role="separator"></div> <!-- Bottom Bar --> <div class="footer-bottom"> <p class="footer-copy">© 2026 קליפר ספורט ותזונה. כל הזכויות שמורות.</p> <div class="footer-legal" aria-label="קישורי מדיניות"> <a href="/privacy">מדיניות פרטיות</a> <span class="legal-sep" aria-hidden="true">|</span> <a href="/terms">תנאי שימוש</a> <span class="legal-sep" aria-hidden="true">|</span> <a href="/accessibility">נגישות</a> <span class="legal-sep" aria-hidden="true">|</span> <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a> </div> </div> </div> <!-- Decorative contour lines --> <div class="footer-contour" aria-hidden="true"> <div class="contour-line c1"></div> <div class="contour-line c2"></div> <div class="contour-line c3"></div> </div> </footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp" style="display:none">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(247,248,245,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+</body>
+</html>
