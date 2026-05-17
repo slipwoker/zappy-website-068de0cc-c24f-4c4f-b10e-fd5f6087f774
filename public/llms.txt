@@ -1,0 +1,83 @@
+# קליפר ספורט ותזונה — Generative Engine Optimization Map
+
+> A triathlon, running, and swimming sports club that combines athletic training with personalized nutritional coaching. The business serves both club members and private clients, offering a holistic approach to endurance sports and healthy lifestyle — blending physical performance with dietary guidance tailored to active individuals and athletes.
+
+---
+
+## Pages
+
+### בית
+https://example.com
+קליפר ספורט ותזונה מציעה קבוצות ריצה, מועדון טריאתלון וליווי תזונתי מותאם אישית. גלו את הדרך שלכם לביצועים מיטביים ואורח חיים בריא — הצטרפו עוד היום!
+
+### תוכניות וליווי
+https://example.com/programs
+בחרו את התוכנית שמתאימה לכם: ליווי תזונתי לספורטאים, תוכנית תזונה לירידה במשקל, אימוני טריאתלון וקבוצות שחייה. כל תוכנית בנויה בדיוק בשבילכם — התחילו לשנות את הגוף שלכם!
+
+### אודות
+https://example.com/about
+מועדון טריאתלון בישראל עם גישה הוליסטית ייחודית — מי אנחנו, מה מניע אותנו ולמה מאות ספורטאים בחרו בקליפר כבית הספורטיבי שלהם. הכירו את הצוות ואת הערכים שלנו!
+
+### צור קשר
+https://example.com/contact
+רוצים להצטרף לקבוצת ריצה למתחילים או לקבל ייעוץ תזונתי אישי? צרו קשר עם קליפר ספורט ותזונה עכשיו — נשמח לענות על כל שאלה ולהתאים לכם את התוכנית המושלמת!
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://example.com/contact
+- Endpoint: https://example.com/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel)
+  - `topic` (text)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About קליפר ספורט ותזונה
+A triathlon, running, and swimming sports club that combines athletic training with personalized nutritional coaching. The business serves both club members and private clients, offering a holistic approach to endurance sports and healthy lifestyle — blending physical performance with dietary guidance tailored to active individuals and athletes.
+
+## Target Audience
+- מתאמנים, ספורטאים, לקוחות פרטיים לליווי תזונתי
+- ספורטאים מתאמנים
+- לקוחות פרטיים לליווי תזונתי
+- רצים מתחילים
+- חובבי טריאתלון
+- חובבי אורח חיים ספורטיבי
+- בעלי משקל עודף
+
+## Industry
+Sports Club & Nutrition Coaching
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://example.com/sitemap.xml
+- Robots: https://example.com/robots.txt
+- Flattened page text (for LLMs): https://example.com/llms-full.txt
