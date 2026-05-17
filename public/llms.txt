@@ -7,33 +7,33 @@
 ## Pages
 
 ### בית
-https://example.com
+https://clipper-sport-vetzuna.zappy5.app
 קליפר ספורט ותזונה מציעה קבוצות ריצה, מועדון טריאתלון וליווי תזונתי מותאם אישית. גלו את הדרך שלכם לביצועים מיטביים ואורח חיים בריא — הצטרפו עוד היום!
 
 ### תוכניות וליווי
-https://example.com/programs
+https://clipper-sport-vetzuna.zappy5.app/programs
 בחרו את התוכנית שמתאימה לכם: ליווי תזונתי לספורטאים, תוכנית תזונה לירידה במשקל, אימוני טריאתלון וקבוצות שחייה. כל תוכנית בנויה בדיוק בשבילכם — התחילו לשנות את הגוף שלכם!
 
 ### אודות
-https://example.com/about
+https://clipper-sport-vetzuna.zappy5.app/about
 מועדון טריאתלון בישראל עם גישה הוליסטית ייחודית — מי אנחנו, מה מניע אותנו ולמה מאות ספורטאים בחרו בקליפר כבית הספורטיבי שלהם. הכירו את הצוות ואת הערכים שלנו!
 
 ### צור קשר
-https://example.com/contact
+https://clipper-sport-vetzuna.zappy5.app/contact
 רוצים להצטרף לקבוצת ריצה למתחילים או לקבל ייעוץ תזונתי אישי? צרו קשר עם קליפר ספורט ותזונה עכשיו — נשמח לענות על כל שאלה ולהתאים לכם את התוכנית המושלמת!
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://clipper-sport-vetzuna.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://clipper-sport-vetzuna.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://clipper-sport-vetzuna.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -43,8 +43,8 @@ Information about WCAG compliance and accessibility features.
 - (No contact details configured yet.)
 
 ### Contact form
-- URL: https://example.com/contact
-- Endpoint: https://example.com/api/email/contact-form
+- URL: https://clipper-sport-vetzuna.zappy5.app/contact
+- Endpoint: https://clipper-sport-vetzuna.zappy5.app/api/email/contact-form
 - Method: POST
 - Content-Type: application/json
 - Fields:
@@ -78,6 +78,6 @@ Sports Club & Nutrition Coaching
 
 # Machine-readable feeds
 
-- Sitemap (XML): https://example.com/sitemap.xml
-- Robots: https://example.com/robots.txt
-- Flattened page text (for LLMs): https://example.com/llms-full.txt
+- Sitemap (XML): https://clipper-sport-vetzuna.zappy5.app/sitemap.xml
+- Robots: https://clipper-sport-vetzuna.zappy5.app/robots.txt
+- Flattened page text (for LLMs): https://clipper-sport-vetzuna.zappy5.app/llms-full.txt

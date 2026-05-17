@@ -2,13 +2,13 @@
 
 A triathlon, running, and swimming sports club that combines athletic training with personalized nutritional coaching. The business serves both club members and private clients, offering a holistic approach to endurance sports and healthy lifestyle — blending physical performance with dietary guidance tailored to active individuals and athletes.
 
-Source: https://example.com
+Source: https://clipper-sport-vetzuna.zappy5.app
 
 ---
 
 ## קבוצות ריצה — קליפר ספורט ותזונה
 
-URL: https://example.com
+URL: https://clipper-sport-vetzuna.zappy5.app
 Description: קליפר ספורט ותזונה מציעה קבוצות ריצה, מועדון טריאתלון וליווי תזונתי מותאם אישית. גלו את הדרך שלכם לביצועים מיטביים ואורח חיים בריא — הצטרפו עוד היום!
 
 קבוצות ריצה — קליפר ספורט ותזונה
@@ -511,7 +511,7 @@ Description: קליפר ספורט ותזונה מציעה קבוצות ריצה
 
 ## תוכניות אימון ותזונה שמביאות תוצאות — קליפר ספורט ותזונה
 
-URL: https://example.com/programs
+URL: https://clipper-sport-vetzuna.zappy5.app/programs
 Description: בחרו את התוכנית שמתאימה לכם: ליווי תזונתי לספורטאים, תוכנית תזונה לירידה במשקל, אימוני טריאתלון וקבוצות שחייה. כל תוכנית בנויה בדיוק בשבילכם — התחילו לשנות את הגוף שלכם!
 
 תוכניות אימון ותזונה שמביאות תוצאות — קליפר ספורט ותזונה
@@ -1088,7 +1088,7 @@ Description: בחרו את התוכנית שמתאימה לכם: ליווי תז
 
 ## הסיפור שמאחורי המועדון שמוביל ספורטאים קדימה — קליפר ספורט ותזונה
 
-URL: https://example.com/about
+URL: https://clipper-sport-vetzuna.zappy5.app/about
 Description: מועדון טריאתלון בישראל עם גישה הוליסטית ייחודית — מי אנחנו, מה מניע אותנו ולמה מאות ספורטאים בחרו בקליפר כבית הספורטיבי שלהם. הכירו את הצוות ואת הערכים שלנו!
 
 הסיפור שמאחורי המועדון שמוביל ספורטאים קדימה — קליפר ספורט ותזונה
@@ -1513,7 +1513,7 @@ Description: מועדון טריאתלון בישראל עם גישה הוליס
 
 ## דברו איתנו ותתחילו את המסע הספורטיבי שלכם — קליפר ספורט ותזונה
 
-URL: https://example.com/contact
+URL: https://clipper-sport-vetzuna.zappy5.app/contact
 Description: רוצים להצטרף לקבוצת ריצה למתחילים או לקבל ייעוץ תזונתי אישי? צרו קשר עם קליפר ספורט ותזונה עכשיו — נשמח לענות על כל שאלה ולהתאים לכם את התוכנית המושלמת!
 
 דברו איתנו ותתחילו את המסע הספורטיבי שלכם — קליפר ספורט ותזונה
@@ -1951,7 +1951,7 @@ Description: רוצים להצטרף לקבוצת ריצה למתחילים או
 
 ## מדיניות פרטיות
 
-URL: https://example.com/privacy
+URL: https://clipper-sport-vetzuna.zappy5.app/privacy
 Description: מדיניות הפרטיות שלנו - כיצד אנו אוספים, משתמשים ומגנים על המידע שלכם
 
 מדיניות פרטיות
@@ -2150,7 +2150,7 @@ Description: מדיניות הפרטיות שלנו - כיצד אנו אוספי
 
 ## הצהרת נגישות
 
-URL: https://example.com/accessibility
+URL: https://clipper-sport-vetzuna.zappy5.app/accessibility
 Description: הצהרת הנגישות שלנו - מחויבותנו לנגישות דיגיטלית
 
 הצהרת נגישות
@@ -2358,7 +2358,7 @@ Description: הצהרת הנגישות שלנו - מחויבותנו לנגיש�
 
 ## תנאי שימוש
 
-URL: https://example.com/terms
+URL: https://clipper-sport-vetzuna.zappy5.app/terms
 Description: תנאי השימוש באתר - הזכויות והחובות של המשתמשים
 
 תנאי שימוש
