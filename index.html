@@ -253,6 +253,66 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
     <!-- Mickidum Accessibility Toolbar -->
     <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+<style>
+      /* Dropdown sub-menu styles */
+      .nav-menu li:has(.sub-menu),
+      nav li:has(.sub-menu),
+      .navbar li:has(.sub-menu) {
+        position: relative;
+      }
+      .nav-menu .sub-menu,
+      nav .sub-menu,
+      .navbar .sub-menu {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 220px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        padding: 8px 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        list-style: none;
+        pointer-events: none;
+      }
+      .nav-menu li:hover > .sub-menu,
+      nav li:hover > .sub-menu,
+      .navbar li:hover > .sub-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .sub-menu li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .sub-menu a {
+        display: block;
+        padding: 10px 16px;
+        color: #333;
+        font-weight: 500;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.2s;
+      }
+      .sub-menu a:hover {
+        background-color: #f5f5f5;
+      }
+      /* RTL dropdown positioning */
+      [dir="rtl"] .sub-menu,
+      html[lang="he"] .sub-menu,
+      html[lang="ar"] .sub-menu {
+        left: auto;
+        right: 0;
+      }
+    </style>
     <link rel="stylesheet" href="/styles.css">
 
     <style id="zappy-dropdown-submenu-styles">
@@ -347,23 +407,23 @@
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
     <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
     <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
   </button>
 
   <button class="phone-header-btn" data-phone="+972526352667" aria-label="Call">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
     </svg>
   </button>
 
   <div class="nav-container">
     <div class="nav-right-group"><div class="nav-brand">
       <a href="/" class="logo-link"><img class="logo" src="/assets/site-----image-1.webp" alt="קליפר ספורט ותזונה"></a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/">בית</a></li><li><a href="/programs">תוכניות וליווי</a></li><li><a href="/about">אודות</a></li><li><a href="/kids-swim-5-7" class="nav-link">שחיית ילדים</a></li></ul></div>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/">בית</a></li><li><a href="/programs">תוכניות וליווי</a><ul class="sub-menu"><li><a href="/programs/first-triathlon" class="nav-link">טריאתלון ראשון</a></li></ul></li><li><a href="/about">אודות</a></li><li><a href="/kids-swim-5-7" class="nav-link">שחיית ילדים</a></li></ul></div>
 
     
 
@@ -813,7 +873,7 @@
 </script>
   
   <main id="main">
-    <section data-band-index="0" class="index-hero-section" data-layout-spec="בית-hero" dir="rtl" data-hero-type="fullscreen-scrim" id="zappy-section-1779003993800-6493" data-zappy-bg-type="image" data-zappy-bg-color="" data-zappy-bg-image="assets/site-index-hero-image-1.webp" data-zappy-bg-overlay-color="#0a1f2e" data-zappy-bg-overlay-opacity="0" data-zappy-bg-video-type="" data-zappy-bg-video-url="">
+    <section data-band-index="0" class="index-hero-section" data-layout-spec="בית-hero" dir="rtl" data-hero-type="fullscreen-scrim" id="zappy-section-1779003993800-6493" data-zappy-bg-type="image" data-zappy-bg-color data-zappy-bg-image="assets/site-index-hero-image-1.webp" data-zappy-bg-overlay-color="#0a1f2e" data-zappy-bg-overlay-opacity="0" data-zappy-bg-video-type data-zappy-bg-video-url>
   <!-- Background Image -->
   <div class="index-hero-bg">
     <img loading="eager" fetchpriority="high" data-hero-bg="true" data-placeholder="index-hero-image-1" data-context="Epic triathlon lifestyle hero image: a determined Israeli athlete in a wetsuit emerging from open water at golden sunrise, with a road cyclist and runner silhouetted in the warm background mist. Deep oceanic blues and sunrise orange tones. Cinematic wide-angle composition, premium sports photography, motion blur on water droplets, dramatic lighting, high contrast. Conveys endurance, performance, and transformation." width="1440" height="900" src="/assets/site-index-hero-image-1.webp" alt="ספורטאי טריאתלון יוצא מהמים בזריחה" class="index-hero-img">
@@ -825,12 +885,12 @@
   <!-- Contour Lines Decoration -->
   <svg class="index-hero-contour" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
     <g fill="none" stroke="rgba(79,195,217,0.07)" stroke-width="1.5">
-      <path d="M-100,700 Q200,660 400,690 T800,670 T1200,680 T1600,665"></path>
-      <path d="M-100,730 Q180,695 420,720 T820,700 T1220,710 T1600,698"></path>
-      <path d="M-100,760 Q220,730 450,755 T850,738 T1250,748 T1600,735"></path>
-      <path d="M-100,790 Q260,765 480,785 T880,770 T1280,778 T1600,768"></path>
-      <path d="M-100,820 Q240,800 460,815 T860,802 T1260,810 T1600,800"></path>
-      <path d="M-100,850 Q200,835 440,848 T840,835 T1240,842 T1600,832"></path>
+      <path d="M-100,700 Q200,660 400,690 T800,670 T1200,680 T1600,665"/>
+      <path d="M-100,730 Q180,695 420,720 T820,700 T1220,710 T1600,698"/>
+      <path d="M-100,760 Q220,730 450,755 T850,738 T1250,748 T1600,735"/>
+      <path d="M-100,790 Q260,765 480,785 T880,770 T1280,778 T1600,768"/>
+      <path d="M-100,820 Q240,800 460,815 T860,802 T1260,810 T1600,800"/>
+      <path d="M-100,850 Q200,835 440,848 T840,835 T1240,842 T1600,832"/>
     </g>
   </svg>
 
@@ -856,8 +916,8 @@
   <!-- Bottom Wave Divider -->
   <div class="index-hero-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,90 L0,52 Q60,38 120,48 T240,42 Q320,36 400,46 T560,40 Q640,34 720,44 T880,38 Q960,32 1040,42 T1200,36 Q1300,30 1360,40 L1440,34 L1440,90 Z" fill="#F5F2EC"></path>
-      <path d="M0,90 L0,62 Q80,50 160,58 T320,52 Q420,46 520,56 T680,50 Q760,44 840,54 T1000,48 Q1080,42 1160,52 T1320,46 L1440,42 L1440,90 Z" fill="#F5F2EC" opacity="0.6"></path>
+      <path d="M0,90 L0,52 Q60,38 120,48 T240,42 Q320,36 400,46 T560,40 Q640,34 720,44 T880,38 Q960,32 1040,42 T1200,36 Q1300,30 1360,40 L1440,34 L1440,90 Z" fill="#F5F2EC"/>
+      <path d="M0,90 L0,62 Q80,50 160,58 T320,52 Q420,46 520,56 T680,50 Q760,44 840,54 T1000,48 Q1080,42 1160,52 T1320,46 L1440,42 L1440,90 Z" fill="#F5F2EC" opacity="0.6"/>
     </svg>
   </div>
 </section>
@@ -923,10 +983,10 @@
         <svg class="index-services-dot-grid" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="dotGrid" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
-              <circle cx="2" cy="2" r="1.5" fill="var(--secondary)" opacity="0.55"></circle>
+              <circle cx="2" cy="2" r="1.5" fill="var(--secondary)" opacity="0.55"/>
             </pattern>
           </defs>
-          <rect width="120" height="120" fill="url(#dotGrid)"></rect>
+          <rect width="120" height="120" fill="url(#dotGrid)"/>
         </svg>
 
         <!-- Peeking secondary tile -->
@@ -946,14 +1006,14 @@
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="terrainLine" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.7"></stop>
-          <stop offset="100%" stop-color="#B8EAF0" stop-opacity="0.3"></stop>
+          <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#B8EAF0" stop-opacity="0.3"/>
         </linearGradient>
       </defs>
       <!-- Filled terrain shape pointing to dark section -->
-      <path d="M0,90 L0,52 L120,38 L280,55 L420,28 L560,45 L700,22 L850,42 L980,18 L1100,36 L1200,20 L1200,90 Z" fill="#071624"></path>
+      <path d="M0,90 L0,52 L120,38 L280,55 L420,28 L560,45 L700,22 L850,42 L980,18 L1100,36 L1200,20 L1200,90 Z" fill="#071624"/>
       <!-- Aqua-to-mist accent line along terrain edge -->
-      <path d="M0,52 L120,38 L280,55 L420,28 L560,45 L700,22 L850,42 L980,18 L1100,36 L1200,20" fill="#071624" stroke="url(#terrainLine)" stroke-width="2"></path>
+      <path d="M0,52 L120,38 L280,55 L420,28 L560,45 L700,22 L850,42 L980,18 L1100,36 L1200,20" fill="#071624" stroke="url(#terrainLine)" stroke-width="2"/>
     </svg>
   </div>
 
@@ -964,18 +1024,18 @@
   <div class="index-benefits-section__texture" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" stroke="rgba(79,195,217,0.05)" stroke-width="1.5">
-        <path d="M0,120 Q200,90 400,130 T800,110 T1200,125"></path>
-        <path d="M0,200 Q200,170 400,210 T800,190 T1200,205"></path>
-        <path d="M0,280 Q200,250 400,290 T800,270 T1200,285"></path>
-        <path d="M0,360 Q200,330 400,370 T800,350 T1200,365"></path>
-        <path d="M0,440 Q200,410 400,450 T800,430 T1200,445"></path>
-        <path d="M0,520 Q200,490 400,530 T800,510 T1200,525"></path>
-        <path d="M0,60 Q300,40 600,65 T1200,55"></path>
-        <path d="M0,160 Q300,140 600,165 T1200,155"></path>
-        <path d="M0,240 Q300,220 600,245 T1200,235"></path>
-        <path d="M0,320 Q300,300 600,325 T1200,315"></path>
-        <path d="M0,400 Q300,380 600,405 T1200,395"></path>
-        <path d="M0,480 Q300,460 600,485 T1200,475"></path>
+        <path d="M0,120 Q200,90 400,130 T800,110 T1200,125"/>
+        <path d="M0,200 Q200,170 400,210 T800,190 T1200,205"/>
+        <path d="M0,280 Q200,250 400,290 T800,270 T1200,285"/>
+        <path d="M0,360 Q200,330 400,370 T800,350 T1200,365"/>
+        <path d="M0,440 Q200,410 400,450 T800,430 T1200,445"/>
+        <path d="M0,520 Q200,490 400,530 T800,510 T1200,525"/>
+        <path d="M0,60 Q300,40 600,65 T1200,55"/>
+        <path d="M0,160 Q300,140 600,165 T1200,155"/>
+        <path d="M0,240 Q300,220 600,245 T1200,235"/>
+        <path d="M0,320 Q300,300 600,325 T1200,315"/>
+        <path d="M0,400 Q300,380 600,405 T1200,395"/>
+        <path d="M0,480 Q300,460 600,485 T1200,475"/>
       </g>
     </svg>
   </div>
@@ -1007,7 +1067,7 @@
       <article class="index-benefits-section__card">
         <div class="index-benefits-section__icon-wrap">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
           </svg>
         </div>
         <div class="index-benefits-section__card-content">
@@ -1021,9 +1081,9 @@
       <article class="index-benefits-section__card">
         <div class="index-benefits-section__icon-wrap">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2a10 10 0 1 0 10 10"></path>
-            <path d="M12 6v6l4 2"></path>
-            <path d="M20 2v4h-4"></path>
+            <path d="M12 2a10 10 0 1 0 10 10"/>
+            <path d="M12 6v6l4 2"/>
+            <path d="M20 2v4h-4"/>
           </svg>
         </div>
         <div class="index-benefits-section__card-content">
@@ -1037,10 +1097,10 @@
       <article class="index-benefits-section__card">
         <div class="index-benefits-section__icon-wrap">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="7" r="4"></circle>
-            <path d="M5.5 21a7 7 0 0 1 13 0"></path>
-            <path d="M20 8l-2 2 2 2"></path>
-            <path d="M4 8l2 2-2 2"></path>
+            <circle cx="12" cy="7" r="4"/>
+            <path d="M5.5 21a7 7 0 0 1 13 0"/>
+            <path d="M20 8l-2 2 2 2"/>
+            <path d="M4 8l2 2-2 2"/>
           </svg>
         </div>
         <div class="index-benefits-section__card-content">
@@ -1054,8 +1114,8 @@
       <article class="index-benefits-section__card">
         <div class="index-benefits-section__icon-wrap">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            <polyline points="9 12 11 14 15 10"></polyline>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
           </svg>
         </div>
         <div class="index-benefits-section__card-content">
@@ -1074,7 +1134,7 @@
   <!-- Bottom Wave Divider transitioning to light section -->
   <div class="index-benefits-section__divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,90 L0,45 Q100,28 200,42 T400,32 Q500,22 600,38 T800,28 Q900,18 1000,35 T1200,30 L1200,90 Z" fill="#F5F2EC"></path>
+      <path d="M0,90 L0,45 Q100,28 200,42 T400,32 Q500,22 600,38 T800,28 Q900,18 1000,35 T1200,30 L1200,90 Z" fill="#F5F2EC"/>
     </svg>
   </div>
 
@@ -1199,9 +1259,9 @@
   <div class="iss-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Route accent line -->
-      <path d="M0,35 Q150,20 300,35 T600,30 T900,35 T1200,28" stroke="#FF8A3D" stroke-width="2" fill="#071624" opacity="0.55"></path>
+      <path d="M0,35 Q150,20 300,35 T600,30 T900,35 T1200,28" stroke="#FF8A3D" stroke-width="2" fill="#071624" opacity="0.55"/>
       <!-- Fill bottom toward next section -->
-      <path d="M0,70 L0,42 Q200,28 400,40 T700,32 Q900,22 1100,38 L1200,35 L1200,70 Z" fill="#071624"></path>
+      <path d="M0,70 L0,42 Q200,28 400,40 T700,32 Q900,22 1100,38 L1200,35 L1200,70 Z" fill="#071624"/>
     </svg>
   </div>
 
@@ -1211,19 +1271,19 @@
   <!-- Contour line decorative SVG background -->
   <div class="index-cta-contour" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,220 Q120,200 240,215 T480,205 Q600,195 720,210 T960,200 Q1080,192 1200,208 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.07)" stroke-width="1.5"></path>
-      <path d="M0,245 Q150,228 300,240 T600,230 Q750,220 900,235 T1200,228 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.05)" stroke-width="1.5"></path>
-      <path d="M0,265 Q180,252 360,262 T720,255 Q900,248 1080,258 T1200,252 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.04)" stroke-width="1.5"></path>
-      <path d="M0,282 Q200,272 400,280 T800,274 Q1000,268 1200,276 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.035)" stroke-width="1.5"></path>
-      <path d="M0,296 Q300,288 600,294 T1200,290 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.03)" stroke-width="1.5"></path>
+      <path d="M0,220 Q120,200 240,215 T480,205 Q600,195 720,210 T960,200 Q1080,192 1200,208 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.07)" stroke-width="1.5"/>
+      <path d="M0,245 Q150,228 300,240 T600,230 Q750,220 900,235 T1200,228 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.05)" stroke-width="1.5"/>
+      <path d="M0,265 Q180,252 360,262 T720,255 Q900,248 1080,258 T1200,252 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.04)" stroke-width="1.5"/>
+      <path d="M0,282 Q200,272 400,280 T800,274 Q1000,268 1200,276 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.035)" stroke-width="1.5"/>
+      <path d="M0,296 Q300,288 600,294 T1200,290 L1200,320 L0,320 Z" fill="none" stroke="rgba(79,195,217,0.03)" stroke-width="1.5"/>
     </svg>
   </div>
 
   <!-- Mountain outline decorative motif -->
   <div class="index-cta-mountain-motif" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg">
-      <polyline points="20,110 80,30 140,110" fill="none" stroke="rgba(79,195,217,0.12)" stroke-width="2" stroke-linejoin="round"></polyline>
-      <polyline points="50,110 100,50 150,110" fill="none" stroke="rgba(79,195,217,0.08)" stroke-width="2" stroke-linejoin="round"></polyline>
+      <polyline points="20,110 80,30 140,110" fill="none" stroke="rgba(79,195,217,0.12)" stroke-width="2" stroke-linejoin="round"/>
+      <polyline points="50,110 100,50 150,110" fill="none" stroke="rgba(79,195,217,0.08)" stroke-width="2" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -1241,11 +1301,11 @@
     <div class="index-cta-buttons">
       <a href="/services" class="index-cta-btn-primary">
         <span>לתוכניות האימון</span>
-        <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
       </a>
       <a href="/contact" class="index-cta-btn-secondary">
         <span>צרו קשר</span>
-        <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
       </a>
     </div>
 

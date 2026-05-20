@@ -253,6 +253,66 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
     <!-- Mickidum Accessibility Toolbar -->
     <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+<style>
+      /* Dropdown sub-menu styles */
+      .nav-menu li:has(.sub-menu),
+      nav li:has(.sub-menu),
+      .navbar li:has(.sub-menu) {
+        position: relative;
+      }
+      .nav-menu .sub-menu,
+      nav .sub-menu,
+      .navbar .sub-menu {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 220px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        padding: 8px 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        list-style: none;
+        pointer-events: none;
+      }
+      .nav-menu li:hover > .sub-menu,
+      nav li:hover > .sub-menu,
+      .navbar li:hover > .sub-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .sub-menu li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .sub-menu a {
+        display: block;
+        padding: 10px 16px;
+        color: #333;
+        font-weight: 500;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.2s;
+      }
+      .sub-menu a:hover {
+        background-color: #f5f5f5;
+      }
+      /* RTL dropdown positioning */
+      [dir="rtl"] .sub-menu,
+      html[lang="he"] .sub-menu,
+      html[lang="ar"] .sub-menu {
+        left: auto;
+        right: 0;
+      }
+    </style>
     <link rel="stylesheet" href="/styles.css">
 
     <style id="zappy-dropdown-submenu-styles">
@@ -347,23 +407,23 @@
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
     <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
     <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
   </button>
 
   <button class="phone-header-btn" data-phone="+972526352667" aria-label="Call">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
     </svg>
   </button>
 
   <div class="nav-container">
     <div class="nav-right-group"><div class="nav-brand">
       <a href="/" class="logo-link"><img class="logo" src="/assets/site-------image-1.webp" alt="קליפר ספורט ותזונה"></a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/">בית</a></li><li><a href="/programs">תוכניות וליווי</a></li><li><a href="/about">אודות</a></li><li><a href="/kids-swim-5-7" class="nav-link">שחיית ילדים</a></li></ul></div>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/">בית</a></li><li><a href="/programs">תוכניות וליווי</a><ul class="sub-menu"><li><a href="/programs/first-triathlon" class="nav-link">טריאתלון ראשון</a></li></ul></li><li><a href="/about">אודות</a></li><li><a href="/kids-swim-5-7" class="nav-link">שחיית ילדים</a></li></ul></div>
 
     
 
@@ -832,8 +892,8 @@
         <div data-zappy-zoom-wrapper="true" data-element-id="img-1779011814346-19r5p8buv" data-element-type="image" data-zappy-zoom-wrapper-width="579px" data-zappy-zoom-wrapper-height="435px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-wrapper-align="center" style="position: relative !important; overflow: hidden !important; width: 579px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 435px !important; display: block !important;" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true"><img fetchpriority="high" data-placeholder="about-story-image-1" data-context="Authentic action photo of a triathlete coach working with a group of athletes outdoors in Israel — one athlete running on a trail path, coach alongside with a clipboard and water bottle, golden morning light, natural setting near open water or a park, warm sunrise tones, editorial magazine style, no heavy staging" width="600" height="450" src="/assets/site-service-story-image-1-1779013286394-0l35md.webp?v=1779013288731" alt="מאמן קליפר ספורט מלווה קבוצת ספורטאים באימון בוקר" class="about-story-img" data-element-type="image" data-element-id="img-1779011814346-19r5p8buv" style="object-position: 50% 50% !important; display: block; object-fit: cover; margin: 0px !important; left: -2.48776% !important; top: -1% !important; width: 104.976% !important; height: 102% !important; max-width: none !important; max-height: none !important;" data-zappy-zoom="1.02" data-zappy-original-width="579" data-zappy-original-height="435" data-zappy-object-position="50% 50%"></div>
         <!-- Mountain outline accent -->
         <svg class="about-story-mountain-accent" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 180 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polyline points="10,80 60,20 90,50 130,10 170,80" stroke="#4FC3D9" stroke-width="2" fill="none" opacity="0.22"></polyline>
-          <polyline points="30,80 80,30 110,55 150,15 175,80" stroke="#4FC3D9" stroke-width="1.2" fill="none" opacity="0.12"></polyline>
+          <polyline points="10,80 60,20 90,50 130,10 170,80" stroke="#4FC3D9" stroke-width="2" fill="none" opacity="0.22"/>
+          <polyline points="30,80 80,30 110,55 150,15 175,80" stroke="#4FC3D9" stroke-width="1.2" fill="none" opacity="0.12"/>
         </svg>
       </figure>
 
@@ -847,8 +907,8 @@
           <li data-grid-item-index="0">
             <span class="about-story-value-icon" aria-hidden="true">
               <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"></circle>
-                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"/>
+                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
             <span>תוכניות אימון מותאמות אישית לכל רמה</span>
@@ -856,8 +916,8 @@
           <li data-grid-item-index="1">
             <span class="about-story-value-icon" aria-hidden="true">
               <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"></circle>
-                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"/>
+                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
             <span>ליווי תזונתי לספורטאים — בתוך המועדון ולקוחות פרטיים</span>
@@ -865,8 +925,8 @@
           <li data-grid-item-index="2">
             <span class="about-story-value-icon" aria-hidden="true">
               <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"></circle>
-                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"/>
+                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
             <span>קהילה חמה של ספורטאי סיבולת בכל הגילאים</span>
@@ -874,8 +934,8 @@
           <li data-grid-item-index="3">
             <span class="about-story-value-icon" aria-hidden="true">
               <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"></circle>
-                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                <circle cx="10" cy="10" r="9" stroke="#4FC3D9" stroke-width="1.5"/>
+                <path d="M6 10.5l2.5 2.5 5-5" stroke="#4FC3D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
             <span>גישה הוליסטית — ביצועים, תזונה ואיכות חיים יחד</span>
@@ -885,7 +945,7 @@
         <p class="zappy-editable"><a href="/about" class="about-story-cta">
           <span>הכירו את הצוות שלנו</span>
           <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M10 8H3M6 5l-3 3 3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M10 8H3M6 5l-3 3 3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
       </p></div>
@@ -895,7 +955,7 @@
   <!-- Bottom curved divider transitioning to next section -->
   <div class="about-story-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,50 Q150,10 300,38 T600,28 Q750,18 900,40 T1200,32 L1200,80 Z" fill="#071624"></path>
+      <path d="M0,80 L0,50 Q150,10 300,38 T600,28 Q750,18 900,40 T1200,32 L1200,80 Z" fill="#071624"/>
     </svg>
   </div>
 </section>
@@ -905,15 +965,15 @@
   <div class="about-philosophy-texture" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" stroke="rgba(79,195,217,0.05)" stroke-width="1.5">
-        <path d="M0,120 Q200,90 400,130 T800,110 T1200,125"></path>
-        <path d="M0,180 Q250,150 500,185 T900,165 T1200,180"></path>
-        <path d="M0,240 Q180,210 380,248 T760,228 T1200,242"></path>
-        <path d="M0,300 Q220,270 440,308 T840,285 T1200,300"></path>
-        <path d="M0,360 Q200,330 420,368 T820,345 T1200,362"></path>
-        <path d="M0,420 Q240,390 460,425 T860,402 T1200,418"></path>
-        <path d="M0,480 Q210,450 430,485 T830,462 T1200,478"></path>
-        <path d="M0,60 Q300,35 600,65 T1200,55"></path>
-        <path d="M0,540 Q280,512 560,545 T1100,522 T1200,538"></path>
+        <path d="M0,120 Q200,90 400,130 T800,110 T1200,125"/>
+        <path d="M0,180 Q250,150 500,185 T900,165 T1200,180"/>
+        <path d="M0,240 Q180,210 380,248 T760,228 T1200,242"/>
+        <path d="M0,300 Q220,270 440,308 T840,285 T1200,300"/>
+        <path d="M0,360 Q200,330 420,368 T820,345 T1200,362"/>
+        <path d="M0,420 Q240,390 460,425 T860,402 T1200,418"/>
+        <path d="M0,480 Q210,450 430,485 T830,462 T1200,478"/>
+        <path d="M0,60 Q300,35 600,65 T1200,55"/>
+        <path d="M0,540 Q280,512 560,545 T1100,522 T1200,538"/>
       </g>
     </svg>
   </div>
@@ -937,9 +997,9 @@
         <div class="about-philosophy-panel-number" aria-hidden="true">01</div>
         <div class="about-philosophy-panel-icon" aria-hidden="true">
           <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
-            <path d="M20 8 L20 32 M12 14 L20 8 L28 14 M12 26 L20 32 L28 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            <circle cx="20" cy="20" r="3" fill="currentColor"></circle>
+            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <path d="M20 8 L20 32 M12 14 L20 8 L28 14 M12 26 L20 32 L28 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="20" cy="20" r="3" fill="currentColor"/>
           </svg>
         </div>
         <h3 class="about-philosophy-panel-title">אימון עם מבנה</h3>
@@ -952,11 +1012,11 @@
         <div class="about-philosophy-panel-number" aria-hidden="true">02</div>
         <div class="about-philosophy-panel-icon" aria-hidden="true">
           <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
-            <path d="M14 28 Q14 18 20 14 Q26 18 26 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M10 28 L30 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-            <circle cx="20" cy="12" r="2.5" fill="currentColor"></circle>
-            <path d="M16 22 Q18 20 20 22 Q22 24 24 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path>
+            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <path d="M14 28 Q14 18 20 14 Q26 18 26 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 28 L30 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="12" r="2.5" fill="currentColor"/>
+            <path d="M16 22 Q18 20 20 22 Q22 24 24 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           </svg>
         </div>
         <h3 class="about-philosophy-panel-title">תזונה עם כוונה</h3>
@@ -971,10 +1031,10 @@
         <div class="about-philosophy-panel-number" aria-hidden="true">03</div>
         <div class="about-philosophy-panel-icon" aria-hidden="true">
           <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
-            <path d="M10 24 Q15 16 20 20 Q25 24 30 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-            <circle cx="30" cy="14" r="2.5" fill="currentColor"></circle>
-            <path d="M10 30 L30 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"></path>
+            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <path d="M10 24 Q15 16 20 20 Q25 24 30 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="30" cy="14" r="2.5" fill="currentColor"/>
+            <path d="M10 30 L30 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
           </svg>
         </div>
         <h3 class="about-philosophy-panel-title">חוסן לטווח ארוך</h3>
@@ -990,13 +1050,13 @@
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="aquaFadeGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(79,195,217,0)"></stop>
-          <stop offset="60%" stop-color="rgba(79,195,217,0.08)"></stop>
-          <stop offset="100%" stop-color="#F7F8F5"></stop>
+          <stop offset="0%" stop-color="rgba(79,195,217,0)"/>
+          <stop offset="60%" stop-color="rgba(79,195,217,0.08)"/>
+          <stop offset="100%" stop-color="#F7F8F5"/>
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="1200" height="90" fill="url(#aquaFadeGrad)"></rect>
-      <path d="M0,90 L0,45 Q150,28 300,48 T600,32 Q800,18 1000,42 T1200,35 L1200,90 Z" fill="#F5F2EC"></path>
+      <rect x="0" y="0" width="1200" height="90" fill="url(#aquaFadeGrad)"/>
+      <path d="M0,90 L0,45 Q150,28 300,48 T600,32 Q800,18 1000,42 T1200,35 L1200,90 Z" fill="#F5F2EC"/>
     </svg>
   </div>
 </section>
@@ -1006,9 +1066,9 @@
   <div class="about-team-dot-grid" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <pattern id="dotGrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="2" cy="2" r="2" fill="#4FC3D9" opacity="0.18"></circle>
+        <circle cx="2" cy="2" r="2" fill="#4FC3D9" opacity="0.18"/>
       </pattern>
-      <rect width="200" height="200" fill="url(#dotGrid)"></rect>
+      <rect width="200" height="200" fill="url(#dotGrid)"/>
     </svg>
   </div>
 
@@ -1117,7 +1177,7 @@
   <!-- Bottom diagonal divider -->
   <div class="about-team-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,50 L1200,10 L1200,80 Z" fill="#F5F2EC"></path>
+      <path d="M0,80 L0,50 L1200,10 L1200,80 Z" fill="#F5F2EC"/>
     </svg>
   </div>
 </section>
