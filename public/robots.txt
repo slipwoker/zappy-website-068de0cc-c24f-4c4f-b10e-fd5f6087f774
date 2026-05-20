@@ -50,4 +50,4 @@ Allow: /
 User-agent: MistralAI-User
 Allow: /
 
-Sitemap: https://clipper-sport-vetzuna.zappy5.app/sitemap.xml
+Sitemap: https://klipper.co.il/sitemap.xml

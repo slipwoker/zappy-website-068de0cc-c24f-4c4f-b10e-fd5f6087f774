@@ -6,38 +6,38 @@
 
 ## Pages
 
-### בית
-https://clipper-sport-vetzuna.zappy5.app
+### קבוצות ריצה — קליפר ספורט ותזונה
+https://klipper.co.il
 קליפר ספורט ותזונה מציעה קבוצות ריצה, מועדון טריאתלון וליווי תזונתי מותאם אישית. גלו את הדרך שלכם לביצועים מיטביים ואורח חיים בריא — הצטרפו עוד היום!
 
-### תוכניות וליווי
-https://clipper-sport-vetzuna.zappy5.app/programs
+### תוכניות אימון ותזונה שמביאות תוצאות — קליפר ספורט ותזונה
+https://klipper.co.il/programs
 בחרו את התוכנית שמתאימה לכם: ליווי תזונתי לספורטאים, תוכנית תזונה לירידה במשקל, אימוני טריאתלון וקבוצות שחייה. כל תוכנית בנויה בדיוק בשבילכם — התחילו לשנות את הגוף שלכם!
 
-### אודות
-https://clipper-sport-vetzuna.zappy5.app/about
+### הסיפור שמאחורי המועדון שמוביל ספורטאים קדימה — קליפר ספורט ותזונה
+https://klipper.co.il/about
 מועדון טריאתלון בישראל עם גישה הוליסטית ייחודית — מי אנחנו, מה מניע אותנו ולמה מאות ספורטאים בחרו בקליפר כבית הספורטיבי שלהם. הכירו את הצוות ואת הערכים שלנו!
 
-### צור קשר
-https://clipper-sport-vetzuna.zappy5.app/contact
-רוצים להצטרף לקבוצת ריצה למתחילים או לקבל ייעוץ תזונתי אישי? צרו קשר עם קליפר ספורט ותזונה עכשיו — נשמח לענות על כל שאלה ולהתאים לכם את התוכנית המושלמת!
-
 ### לימוד שחייה לילדים בגילאי 5-7
-https://clipper-sport-vetzuna.zappy5.app/kids-swim-5-7
+https://klipper.co.il/kids-swim-5-7
 קליפר ספורט ותזונה - לימוד שחייה לילדים בגילאי 5-7
+
+### דברו איתנו ותתחילו את המסע הספורטיבי שלכם — קליפר ספורט ותזונה
+https://klipper.co.il/contact
+רוצים להצטרף לקבוצת ריצה למתחילים או לקבל ייעוץ תזונתי אישי? צרו קשר עם קליפר ספורט ותזונה עכשיו — נשמח לענות על כל שאלה ולהתאים לכם את התוכנית המושלמת!
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://clipper-sport-vetzuna.zappy5.app/privacy
+https://klipper.co.il/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://clipper-sport-vetzuna.zappy5.app/terms
+https://klipper.co.il/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://clipper-sport-vetzuna.zappy5.app/accessibility
+https://klipper.co.il/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -50,17 +50,17 @@ Information about WCAG compliance and accessibility features.
 - Address: ינשוף 7, כרמית
 
 ### Contact form
-- URL: https://clipper-sport-vetzuna.zappy5.app/contact
-- Endpoint: https://clipper-sport-vetzuna.zappy5.app/api/email/contact-form
+- URL: https://klipper.co.il/contact
+- Endpoint: https://klipper.co.il/api/email/contact-form
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text, required)
-  - `email` (email, required)
+  - `name` (text)
+  - `email` (email)
   - `phone` (tel)
   - `topic` (text)
-  - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox)
 
 ---
 
@@ -85,6 +85,6 @@ Sports Club & Nutrition Coaching
 
 # Machine-readable feeds
 
-- Sitemap (XML): https://clipper-sport-vetzuna.zappy5.app/sitemap.xml
-- Robots: https://clipper-sport-vetzuna.zappy5.app/robots.txt
-- Flattened page text (for LLMs): https://clipper-sport-vetzuna.zappy5.app/llms-full.txt
+- Sitemap (XML): https://klipper.co.il/sitemap.xml
+- Robots: https://klipper.co.il/robots.txt
+- Flattened page text (for LLMs): https://klipper.co.il/llms-full.txt
