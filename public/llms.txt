@@ -59,7 +59,7 @@ Information about WCAG compliance and accessibility features.
 - Email: klippersport@gmail.com
 - Phone: +972526352667
 - Phone (tel): tel:+972526352667
-- Address: ינשוף 7, כרמית, ישראל
+- Address: ינשוף 7, כרמית, 8502500, ישראל
 
 ### Contact form
 - URL: https://klipper.co.il/contact
@@ -67,12 +67,12 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text)
-  - `email` (email)
+  - `name` (text, required)
+  - `email` (email, required)
   - `phone` (tel)
   - `topic` (text)
-  - `message` (textarea)
-  - `privacy_consent` (checkbox)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
 
 ---
 
