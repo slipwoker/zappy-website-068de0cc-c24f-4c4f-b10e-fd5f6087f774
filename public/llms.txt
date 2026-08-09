@@ -42,6 +42,10 @@ https://klipper.co.il/programs/distance-swim-course
 https://klipper.co.il/endurance-performance
 קליפר ספורט ותזונה - תכנית ביצועים לספורטאי סבולת
 
+### קליפר טריאתלון לילדים ונוער
+https://klipper.co.il/kids-triathlon
+קליפר ספורט ותזונה - קליפר טריאתלון לילדים ונוער
+
 ## Legal & Policy
 
 ### Privacy Policy
@@ -75,7 +79,7 @@ Information about WCAG compliance and accessibility features.
   - `email` (email, required)
   - `phone` (tel)
   - `topic` (text)
-  - `message` (textarea)
+  - `message` (textarea, required)
   - `privacy_consent` (checkbox, required)
 
 ---
