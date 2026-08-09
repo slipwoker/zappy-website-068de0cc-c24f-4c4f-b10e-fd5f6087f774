@@ -34,8 +34,8 @@ https://klipper.co.il/programs/nutrition-3-months
 https://klipper.co.il/programs/distance-swim-course
 קליפר ספורט ותזונה - קורס שחייה למרחקים
 
-### קליפר טריאתלון לילדים ונוער
-https://klipper.co.il/kids-triathlon
+### קליפר טריאתלון ילדים
+https://klipper.co.il/kids-triathlon-club
 קליפר ספורט ותזונה - קליפר טריאתלון לילדים ונוער
 
 ### תכנית ביצועים לספורטאי סבולת
@@ -75,12 +75,12 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text)
-  - `email` (email)
+  - `name` (text, required)
+  - `email` (email, required)
   - `phone` (tel)
   - `topic` (text)
-  - `message` (textarea)
-  - `privacy_consent` (checkbox)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
 
 ---
 
