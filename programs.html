@@ -1225,10 +1225,10 @@ body:has(.zappy-announcement-bar) main > section[class*="hero"]:first-of-type {
 <a class="skip-link" href="#main">דלג לתוכן הראשי</a>
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
-    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <svg style="display:block !important" class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
     </svg>
-    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none !important">
       <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
     </svg>
   </button>
@@ -1242,7 +1242,7 @@ body:has(.zappy-announcement-bar) main > section[class*="hero"]:first-of-type {
   <div class="nav-container">
     <div class="nav-right-group"><div class="nav-brand">
       <a href="/" class="logo-link"><img class="logo" src="/assets/site----------------image-1.webp" alt="קליפר ספורט ותזונה" decoding="async" width="35" height="35"></a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/programs">תוכניות וליווי</a><ul class="sub-menu"><li><a href="/programs/first-triathlon">הכנה לטריאתלון ראשון</a></li><li><a href="/kids-swim-5-7">לימוד שחייה לילדים בגילאי 5-7</a></li><li><a href="/programs/nutrition-3-months">ליווי תזונתי - 3 חודשים של ליווי</a></li><li><a href="/kids-triathlon-club" class="nav-link">קליפר טריאתלון ילדים</a></li></ul></li><li><a href="/about">אודות</a></li><li><a href="/endurance-performance" class="nav-link">ביצועים</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul></div>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/programs">תוכניות וליווי</a><ul class="sub-menu"><li><a href="/programs/first-triathlon">הכנה לטריאתלון ראשון</a></li><li><a href="/kids-swim-5-7">לימוד שחייה לילדים בגילאי 5-7</a></li><li><a href="/programs/nutrition-3-months">ליווי תזונתי - 3 חודשים של ליווי</a></li><li><a href="/kids-triathlon-club" class="nav-link">קליפר טריאתלון ילדים</a></li><li><a href="/programs/distance-swim-course" class="nav-link">קורס שחייה למרחקים</a></li></ul></li><li><a href="/about">אודות</a></li><li><a href="/endurance-performance" class="nav-link">ביצועים</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul></div>
 
     
 
@@ -1875,7 +1875,29 @@ body:has(.zappy-announcement-bar) main > section[class*="hero"]:first-of-type {
         </div>
       </article>
 
-    </div>
+    <article class="programs-feature-card">
+        <div class="programs-feature-card-accent"></div>
+        <div class="programs-feature-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Swimmer figure -->
+            <circle cx="28" cy="8" r="3" stroke="currentColor" stroke-width="2" fill="none"></circle>
+            <path d="M28 11 L20 16 L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+            <path d="M20 16 L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path>
+            <path d="M22 22 L18 27 M22 22 L26 27" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path>
+            <!-- Waves -->
+            <path d="M3 22 Q6 19 9 22 Q12 25 15 22 Q18 19 21 22 Q24 25 27 22 Q30 19 33 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"></path>
+            <path d="M3 27 Q6 24 9 27 Q12 30 15 27 Q18 24 21 27 Q24 30 27 27 Q30 24 33 27" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.35"></path>
+          </svg>
+        </div>
+        <div class="programs-feature-content">
+          <h3 class="programs-feature-title">קורס שחייה למרחקים</h3>
+          <p class="programs-feature-desc">קליפר ספורט ותזונה - קורס שחייה למרחקים</p>
+          <div class="programs-feature-profile">
+            <span class="programs-feature-profile-label">מתאים ל:</span>
+            <span class="programs-feature-profile-text">שחיינים המעוניינים לפתח יכולות שחייה למרחקים ארוכים</span>
+          </div>
+        </div>
+      </article></div>
     <!-- End Cards Grid -->
   </div>
 
@@ -2321,7 +2343,7 @@ body:has(.zappy-announcement-bar) main > section[class*="hero"]:first-of-type {
 <li><a href="/" style=""><span class="hours-day">יום ו’</span> <span class="hours-time">09:00–12:00</span></a></li>
 <li><a href="/"><span class="hours-day">שבת</span> <span class="hours-time">סגור</span></a></li></ul> <div class="footer-badge"><i class="fas fa-bolt"></i> ייעוץ תזונה זמין 24/7</div> </div> </div> <!-- Divider --> <div class="footer-divider" role="separator"></div> <!-- Bottom Bar --> <div class="footer-bottom"> <p class="footer-copy">© 2026 קליפר ספורט ותזונה. כל הזכויות שמורות.</p> <div class="footer-legal" aria-label="קישורי מדיניות"> <a href="/privacy">מדיניות פרטיות</a> <span class="legal-sep" aria-hidden="true">|</span> <a href="/terms">תנאי שימוש</a> <span class="legal-sep" aria-hidden="true">|</span> <a href="/accessibility">נגישות</a> <span class="legal-sep" aria-hidden="true">|</span> <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a> </div> </div> </div> <!-- Decorative contour lines --> <div class="footer-contour" aria-hidden="true"> <div class="contour-line c1"></div> <div class="contour-line c2"></div> <div class="contour-line c3"></div> </div> </footer>
   
-  <a href="https://wa.me/972526352667" class="whatsapp-float" aria-label="WhatsApp" style="display:none;">
+  <a href="https://wa.me/972526352667" class="whatsapp-float" aria-label="WhatsApp" style="display:none">
     <i class="fab fa-whatsapp"></i>
   </a>
   
