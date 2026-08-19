@@ -3444,6 +3444,7 @@ Description: קליפר ספורט ותזונה - ליווי תזונתי - 3 ח
 
 URL: https://klipper.co.il/programs/distance-swim-course
 Description: קליפר ספורט ותזונה - קורס שחייה למרחקים
+קורס מרוכז ללימוד שחייה חתירה
 
 קורס שחייה למרחקים
 
