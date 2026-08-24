@@ -9161,6 +9161,347 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
     font-size: 0.9rem;
   }
 }
+
+/* Cloned section from URL */
+.clipr-hero-categories {
+  background: var(--background-color, #0B0F14);
+  color: var(--text-color, #8b8f94);
+  font-family: system-ui, sans-serif;
+  direction: rtl;
+}
+
+/* Hero Banner */
+.clipr-hero {
+  background: var(--primary-color, #0B1F33);
+  padding: 100px 20px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.clipr-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-color, #E11B22);
+}
+
+.clipr-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.clipr-hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.clipr-hero-subtitle {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 32px;
+  line-height: 1.6;
+}
+
+.clipr-hero-cta {
+  display: inline-block;
+  background: var(--accent-color, #E11B22);
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(225, 27, 34, 0.35);
+}
+
+.clipr-hero-cta:hover,
+.clipr-hero-cta:focus {
+  background: #c4171e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(225, 27, 34, 0.5);
+  outline: none;
+}
+
+.clipr-hero-cta span {
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.2s ease;
+}
+
+.clipr-hero-cta:hover span,
+.clipr-hero-cta:focus span {
+  transform: translateX(-4px);
+}
+
+/* Category Navigation Strip */
+.clipr-category-strip {
+  background: var(--surface-color, #11161D);
+  padding: 40px 20px;
+  border-bottom: 1px solid rgba(139, 143, 148, 0.15);
+}
+
+.clipr-category-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  max-width: 1100px;
+}
+
+.clipr-category-item {
+  flex: 0 0 auto;
+}
+
+.clipr-category-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color, #8b8f94);
+  transition: color 0.3s ease;
+}
+
+.clipr-category-link:hover,
+.clipr-category-link:focus {
+  color: #ffffff;
+  outline: none;
+}
+
+.clipr-category-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--accent-color, #E11B22);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: var(--primary-color, #0B1F33);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.clipr-category-link:hover .clipr-category-circle,
+.clipr-category-link:focus .clipr-category-circle {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(225, 27, 34, 0.4);
+  border-color: #ffffff;
+}
+
+.clipr-category-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(30%) contrast(1.1);
+  transition: filter 0.3s ease;
+}
+
+.clipr-category-link:hover .clipr-category-img,
+.clipr-category-link:focus .clipr-category-img {
+  filter: grayscale(0%) contrast(1.05);
+}
+
+.clipr-category-label {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Alternating Content Sections */
+.clipr-content-sections {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.clipr-section-row {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  background: var(--surface-color, #11161D);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+}
+
+.clipr-section-row:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.clipr-section-row--reverse {
+  flex-direction: row-reverse;
+}
+
+.clipr-section-text {
+  flex: 1;
+  padding: 40px;
+}
+
+.clipr-section-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px;
+  line-height: 1.3;
+}
+
+.clipr-section-body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-color, #8b8f94);
+  margin: 0 0 24px;
+}
+
+.clipr-section-link {
+  display: inline-block;
+  color: var(--accent-color, #E11B22);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.clipr-section-link:hover,
+.clipr-section-link:focus {
+  color: #ffffff;
+  outline: none;
+}
+
+.clipr-section-link span {
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform 0.2s ease;
+}
+
+.clipr-section-link:hover span,
+.clipr-section-link:focus span {
+  transform: translateX(-4px);
+}
+
+.clipr-section-image {
+  flex: 1;
+  min-height: 300px;
+  background: var(--primary-color, #0B1F33);
+}
+
+.clipr-section-img {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .clipr-section-row,
+  .clipr-section-row--reverse {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .clipr-section-text {
+    padding: 30px 24px;
+  }
+
+  .clipr-section-image {
+    width: 100%;
+    min-height: 250px;
+  }
+
+  .clipr-section-img {
+    min-height: 250px;
+  }
+
+  .clipr-hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .clipr-hero {
+    padding: 70px 16px 60px;
+  }
+
+  .clipr-hero-title {
+    font-size: 2rem;
+  }
+
+  .clipr-hero-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .clipr-hero-cta {
+    font-size: 1rem;
+    padding: 14px 28px;
+  }
+
+  .clipr-category-strip {
+    padding: 28px 16px;
+  }
+
+  .clipr-category-list {
+    gap: 20px;
+  }
+
+  .clipr-category-circle {
+    width: 70px;
+    height: 70px;
+    border-width: 2px;
+  }
+
+  .clipr-category-label {
+    font-size: 0.8rem;
+  }
+
+  .clipr-content-sections {
+    padding: 40px 16px;
+    gap: 40px;
+  }
+
+  .clipr-section-heading {
+    font-size: 1.5rem;
+  }
+
+  .clipr-section-body {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clipr-category-list {
+    gap: 14px;
+  }
+
+  .clipr-category-circle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .clipr-category-label {
+    font-size: 0.72rem;
+  }
+
+  .clipr-hero-title {
+    font-size: 1.7rem;
+  }
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
