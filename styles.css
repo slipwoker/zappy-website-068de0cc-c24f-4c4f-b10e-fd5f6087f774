@@ -9581,6 +9581,71 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   display: none !important;
 }
 }
+
+@media (max-width: 768px) {
+.nav-menu, .navbar #navMenu {
+  position: static !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  gap: 8px !important;
+  padding: 10px 4px 8px 4px !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nav-menu > li, #navMenu > li {
+  flex: 0 0 auto !important;
+  min-height: auto !important;
+}
+
+.nav-menu > li > a, #navMenu > li > a {
+  display: inline-block !important;
+  padding: 10px 18px !important;
+  border-radius: 999px !important;
+  background: var(--surface-color, var(--surface, var(--surface-color, var(--surface, #11161D)))) !important;
+  color: #FFFFFF !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  border: 1px solid #3A4655 !important;
+  line-height: 1.2 !important;
+}
+
+.nav-menu > li.nav-cta-item-mobile > a {
+  background: var(--accent-color, var(--accent, var(--accent-color, var(--accent, #E11B22)))) !important;
+  border-color: var(--accent-color, var(--accent, var(--accent-color, var(--accent, #E11B22)))) !important;
+}
+}
+
+@media (max-width: 768px) {
+nav.navbar #navMenu:not(.active):not(.open),
+  nav.navbar .nav-menu:not(.active):not(.open) {
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: static !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  gap: 8px !important;
+  padding: 10px 4px 8px 4px !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
