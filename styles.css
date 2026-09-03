@@ -9723,6 +9723,36 @@ nav.navbar #navMenu:not(.active):not(.open),
 .kids-triathlon-services-section .schedule-day { flex: 1 1 170px !important; }
 .kids-triathlon-services-section .schedule-day { min-width: 160px !important; }
 
+
+.kids-triathlon-services-section .schedule-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.kids-triathlon-services-section .schedule-day {
+  flex: none;
+  min-width: 160px;
+  background: #F9F7F3;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+.kids-triathlon-services-section .schedule-day {
+  min-width: 150px;
+}
+}
+/* zappy-self-heal */
+.kids-triathlon-services-section .schedule-grid { display: grid !important; }
+
+/* zappy-self-heal */
+html body .kids-triathlon-services-section .schedule-grid { display: grid !important; }
+
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
