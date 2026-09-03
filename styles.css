@@ -9646,6 +9646,83 @@ nav.navbar #navMenu:not(.active):not(.open),
   transform: none !important;
 }
 }
+
+.kids-triathlon-services-section .schedule-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.kids-triathlon-services-section .schedule-day {
+  flex: 1 1 170px;
+  min-width: 160px;
+  background: #F9F7F3;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.kids-triathlon-services-section .schedule-day-header {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.kids-triathlon-services-section .schedule-slot {
+  padding: 10px 12px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+
+.kids-triathlon-services-section .slot-type {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+.kids-triathlon-services-section .slot-type.swim {
+  color: var(--secondary-color, var(--secondary, #1E5FB4));
+}
+
+.kids-triathlon-services-section .slot-type.cycle {
+  color: var(--accent);
+}
+
+.kids-triathlon-services-section .slot-time {
+  font-weight: 700;
+  color: #0D1F2D;
+  font-size: 0.95rem;
+}
+
+.kids-triathlon-services-section .slot-detail {
+  font-size: 0.8rem;
+  color: #4A5F70;
+}
+
+.kids-triathlon-services-section .schedule-note {
+  margin: 14px 0 0 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #4A5F70;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+.kids-triathlon-services-section .schedule-day {
+  flex: 1 1 100%;
+  min-width: 100%;
+}
+}
+/* zappy-self-heal */
+.kids-triathlon-services-section .schedule-day { flex: 1 1 170px !important; }
+.kids-triathlon-services-section .schedule-day { min-width: 160px !important; }
+
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
