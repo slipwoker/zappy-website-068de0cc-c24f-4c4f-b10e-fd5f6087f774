@@ -9753,6 +9753,18 @@ nav.navbar #navMenu:not(.active):not(.open),
 /* zappy-self-heal */
 html body .kids-triathlon-services-section .schedule-grid { display: grid !important; }
 
+/* Batch: שיפור ניגודיות טקסט בכל האתר */
+:root { --text-dark: #1a2530 !important; --text-muted: #5d6774 !important; --text-color: #1a2530 !important; --text-secondary-color: #5d6774 !important; } .site-footer, .site-footer p, .site-footer span, .site-footer li, .site-footer a, .site-footer .footer-tagline { color: #ffffff !important; }
+
+.nav-cta-btn, .nav-cta-item-mobile a {
+  background-color: #25D366 !important;
+  color: var(--primary-color, var(--primary, #0B1F33)) !important;
+  box-shadow: none !important;
+}
+
+.nav-cta-btn:hover {
+  background-color: #1fb959 !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
