@@ -9809,6 +9809,14 @@ html body .kids-triathlon-services-section .schedule-grid { display: grid !impor
   border-bottom: none !important;
 }
 }
+
+.index-benefits-section__subheading, .index-benefits-section__card-text, .index-benefits-section__quote, .index-benefits-section__label, .index-benefits-section__heading {
+  color: #ffffff !important;
+}
+
+.index-services-section .index-services-intro, .index-services-section .index-services-block-desc, .index-success-stories-section .iss-subtitle, .index-success-stories-section .iss-quote, .index-success-stories-section .iss-cta-text {
+  color: #3a4653 !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
