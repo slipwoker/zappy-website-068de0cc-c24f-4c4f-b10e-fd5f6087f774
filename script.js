@@ -567,17 +567,21 @@ window.onload = function() {
     }
 })();
 
-/* ZAPPY_CUSTOM_JS_START:c04752865c6f */
+/* ZAPPY_CUSTOM_JS_START:9bfcd9ebd146 */
 (function () {
   function __zappyCustomInit() {
     try {
 (function () {
-  function initMenuReliable() {
+  function makeReliable() {
+    if (window.__menuFixed) return;
+    // Only act on mobile viewport
+    if (window.innerWidth > 768) return;
+
     var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
     var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
     if (!toggle || !menu) return;
 
-    // Remove previously attached handlers by replacing the node
+    // Strip every existing listener by cloning
     var fresh = toggle.cloneNode(true);
     toggle.parentNode.replaceChild(fresh, toggle);
     toggle = fresh;
@@ -588,43 +592,47 @@ window.onload = function() {
     function setOpen(open) {
       menu.classList.toggle('active', open);
       menu.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       if (hamburger) hamburger.style.setProperty('display', open ? 'none' : 'block', 'important');
       if (closeIcon) closeIcon.style.setProperty('display', open ? 'block' : 'none', 'important');
       document.body.style.overflow = open ? 'hidden' : '';
     }
 
-    // Single, reliable handler (click only — no touchend double-fire)
+    // Attach a single pointer handler (pointerdown avoids touchend/click double-fire)
+    var handled = false;
     toggle.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
+      if (handled) return;
+      handled = true;
       var isOpen = menu.classList.contains('active') || menu.classList.contains('open');
       setOpen(!isOpen);
+      setTimeout(function () { handled = false; }, 100);
     });
 
-    // Close when a real nav link is tapped
+    // Ensure clicking the hamburger toggles OFF when open, via a direct check
+    // Close on nav link click
     var links = menu.querySelectorAll('a');
     links.forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
+      link.addEventListener('click', function (e) {
+        var href = link.getAttribute('href');
+        if (href && href !== '#') {
           setOpen(false);
         }
       });
     });
 
-    // Close when tapping outside the menu (but not immediately after opening)
-    document.addEventListener('click', function (e) {
-      var isOpen = menu.classList.contains('active') || menu.classList.contains('open');
-      if (isOpen && !menu.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
-        setOpen(false);
-      }
-    });
+    window.__menuFixed = true;
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMenuReliable);
-  } else {
-    initMenuReliable();
-  }
+  // Run after the original inline script has finished (on load)
+  window.addEventListener('load', function () {
+    setTimeout(makeReliable, 150);
+  });
+  // Also retry a bit later in case of slow resources
+  window.addEventListener('load', function () {
+    setTimeout(makeReliable, 600);
+  });
 })();
     } catch (e) {
       if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
@@ -636,7 +644,7 @@ window.onload = function() {
     __zappyCustomInit();
   }
 })();
-/* ZAPPY_CUSTOM_JS_END:c04752865c6f */
+/* ZAPPY_CUSTOM_JS_END:9bfcd9ebd146 */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
