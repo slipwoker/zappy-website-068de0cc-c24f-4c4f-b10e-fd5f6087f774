@@ -10061,6 +10061,63 @@ html body .adult-tri-schedule-section .ats-week { display: grid !important; }
 .nav-menu > .nav-item > a {
   color: #F7F8F5 !important;
 }
+
+@media (max-width: 768px) {
+.nav-menu.active,
+  .nav-menu.open {
+  display: flex !important;
+  position: fixed !important;
+  top: 64px !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  flex-direction: column !important;
+  background-color: var(--primary-color, var(--primary, var(--primary-color, var(--primary, #0B1F33)))) !important;
+  padding: 16px 20px 32px !important;
+  margin: 0 !important;
+  z-index: 999 !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35) !important;
+}
+
+.nav-menu.active li,
+  .nav-menu.open li {
+  width: 100% !important;
+}
+
+.nav-menu.active a,
+  .nav-menu.open a {
+  color: #F7F8F5 !important;
+  text-align: right !important;
+  padding: 16px 12px !important;
+  display: block !important;
+  border-bottom: 1px solid rgba(247, 248, 245, 0.12) !important;
+  font-size: 1.05rem !important;
+}
+
+.nav-menu.active li:last-child > a,
+  .nav-menu.open li:last-child > a {
+  border-bottom: none !important;
+}
+}
+
+.index-hero-section .index-hero-subtitle {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55) !important;
+}
+
+.index-hero-section .index-hero-label {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+.index-hero-section .index-hero-btn-primary {
+  color: #FFFFFF !important;
+}
+
+.index-hero-section .index-hero-btn-secondary {
+  color: #FFFFFF !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

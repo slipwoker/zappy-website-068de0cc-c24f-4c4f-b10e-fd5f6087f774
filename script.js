@@ -567,6 +567,77 @@ window.onload = function() {
     }
 })();
 
+/* ZAPPY_CUSTOM_JS_START:c04752865c6f */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  function initMenuReliable() {
+    var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+    var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+    if (!toggle || !menu) return;
+
+    // Remove previously attached handlers by replacing the node
+    var fresh = toggle.cloneNode(true);
+    toggle.parentNode.replaceChild(fresh, toggle);
+    toggle = fresh;
+
+    var hamburger = toggle.querySelector('.hamburger-icon');
+    var closeIcon = toggle.querySelector('.close-icon');
+
+    function setOpen(open) {
+      menu.classList.toggle('active', open);
+      menu.classList.toggle('open', open);
+      if (hamburger) hamburger.style.setProperty('display', open ? 'none' : 'block', 'important');
+      if (closeIcon) closeIcon.style.setProperty('display', open ? 'block' : 'none', 'important');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    // Single, reliable handler (click only — no touchend double-fire)
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isOpen = menu.classList.contains('active') || menu.classList.contains('open');
+      setOpen(!isOpen);
+    });
+
+    // Close when a real nav link is tapped
+    var links = menu.querySelectorAll('a');
+    links.forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
+          setOpen(false);
+        }
+      });
+    });
+
+    // Close when tapping outside the menu (but not immediately after opening)
+    document.addEventListener('click', function (e) {
+      var isOpen = menu.classList.contains('active') || menu.classList.contains('open');
+      if (isOpen && !menu.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        setOpen(false);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMenuReliable);
+  } else {
+    initMenuReliable();
+  }
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:c04752865c6f */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
