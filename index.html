@@ -2380,6 +2380,59 @@ body:has(.zappy-announcement-bar) .navbar:not(.zappy-catalog-menu):not(.mobile-s
   </a>
   
   <div data-integration="accessibility:toolbar"></div>
+<script>
+(function () {
+  function fixMenu() {
+    var btn = document.getElementById('mobileToggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+    try {
+      // Remove all previous listeners by replacing the button with a clean clone
+      var fresh = btn.cloneNode(true);
+      if (btn.parentNode) btn.parentNode.replaceChild(fresh, btn);
+      btn = fresh;
+    } catch (e) {}
+
+    var ham = btn.querySelector('.hamburger-icon');
+    var cls = btn.querySelector('.close-icon');
+
+    function render(open) {
+      menu.classList.toggle('active', open);
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (ham) ham.style.setProperty('display', open ? 'none' : 'block', 'important');
+      if (cls) cls.style.setProperty('display', open ? 'block' : 'none', 'important');
+      if (document.body) document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    var lastTap = 0;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var now = Date.now();
+      if (now - lastTap < 300) return;
+      lastTap = now;
+      var open = menu.classList.contains('active') || menu.classList.contains('open');
+      render(!open);
+    });
+
+    var links = menu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function () {
+        if (this.getAttribute('href') && this.getAttribute('href') !== '#') render(false);
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(fixMenu, 0); });
+  } else {
+    fixMenu();
+  }
+  window.addEventListener('load', function () { setTimeout(fixMenu, 200); });
+  window.addEventListener('load', function () { setTimeout(fixMenu, 900); });
+})();
+</script>
 
     <script src="/script.js"></script>
 
