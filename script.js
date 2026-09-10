@@ -567,74 +567,14 @@ window.onload = function() {
     }
 })();
 
-/* ZAPPY_CUSTOM_JS_START:174a9a074df9 */
+/* ZAPPY_CUSTOM_JS_START:ed769eef4905 */
 (function () {
   function __zappyCustomInit() {
     try {
 (function () {
-  // Run repeatedly until we have the toggle, then neutralize double-fire permanently
-  function fixMenu() {
-    var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
-    var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
-    if (!toggle || !menu) return;
-
-    var KEY = '__zappyMenuArmed';
-    if (toggle[KEY]) return;
-    toggle[KEY] = true;
-
-    var hamburger = toggle.querySelector('.hamburger-icon');
-    var close = toggle.querySelector('.close-icon');
-
-    function apply(open) {
-      menu.classList.toggle('active', open);
-      menu.classList.toggle('open', open);
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (hamburger) hamburger.style.setProperty('display', open ? 'none' : 'block', 'important');
-      if (close) close.style.setProperty('display', open ? 'block' : 'none', 'important');
-    }
-
-    // Capture-phase listener fires BEFORE the inline script's bubble-phase handlers.
-    // We intercept, stopPropagation + stopImmediatePropagation so the original
-    // click AND touchend handlers never run, then toggle exactly once ourselves.
-    function intercept(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      var open = menu.classList.contains('active') || menu.classList.contains('open');
-      apply(!open);
-    }
-
-    // Attach in capture phase on both events (capture beats bubble-phase original handlers)
-    var fresh = toggle.cloneNode(true);
-    toggle.parentNode.replaceChild(fresh, toggle);
-    toggle = fresh;
-    hamburger = toggle.querySelector('.hamburger-icon');
-    close = toggle.querySelector('.close-icon');
-
-    toggle.addEventListener('click', intercept, true);
-    toggle.addEventListener('touchend', intercept, true);
-    toggle.addEventListener('pointerup', intercept, true);
-
-    // Close when a nav link is tapped
-    menu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        if (a.getAttribute('href') && a.getAttribute('href') !== '#') {
-          apply(false);
-        }
-      });
-    });
-
-    // Re-arm so future clone re-runs still keep working (idempotent)
-    toggle[KEY] = true;
-  }
-
-  function attempt() { try { fixMenu(); } catch (e) {} }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', attempt);
-  }
-  window.addEventListener('load', function () { setTimeout(attempt, 50); });
-  window.addEventListener('load', function () { setTimeout(attempt, 300); });
-  window.addEventListener('load', function () { setTimeout(attempt, 800); });
+  // No-op: mobile menu is handled by the original inline navbar script only.
+  // This block intentionally does nothing to avoid double-toggling the menu.
+  void 0;
 })();
     } catch (e) {
       if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
@@ -646,7 +586,7 @@ window.onload = function() {
     __zappyCustomInit();
   }
 })();
-/* ZAPPY_CUSTOM_JS_END:174a9a074df9 */
+/* ZAPPY_CUSTOM_JS_END:ed769eef4905 */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
