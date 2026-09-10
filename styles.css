@@ -10034,6 +10034,33 @@ html body .adult-tri-schedule-section .ats-week { display: grid !important; }
   background: #1EBE5B !important;
   color: var(--primary-color, var(--primary, #0B1F33)) !important;
 }
+
+.nav-menu {
+  background-color: var(--primary-color, var(--primary, #0B1F33)) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 0 0 16px 16px !important;
+  padding: 24px 20px !important;
+}
+
+.nav-menu a {
+  color: #F7F8F5 !important;
+  font-size: 1.05rem !important;
+  padding: 16px 12px !important;
+  border-bottom: 1px solid rgba(247, 248, 245, 0.12) !important;
+}
+
+.nav-menu li:last-child > a {
+  border-bottom: none !important;
+}
+
+.nav-menu > li > a {
+  color: #F7F8F5 !important;
+}
+
+.nav-menu > .nav-item > a {
+  color: #F7F8F5 !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
