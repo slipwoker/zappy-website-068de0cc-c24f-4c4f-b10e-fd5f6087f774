@@ -22,6 +22,10 @@ https://klipper.co.il/about
 https://klipper.co.il/programs/first-triathlon
 קליפר ספורט ותזונה - הכנה לטריאתלון ראשון
 
+### תכנית ביצועים לספורטאי סבולת
+https://klipper.co.il/endurance-performance
+קליפר ספורט ותזונה - תכנית ביצועים לספורטאי סבולת
+
 ### לימוד שחייה לילדים בגילאי 5-7
 https://klipper.co.il/kids-swim-5-7
 קליפר ספורט ותזונה - לימוד שחייה לילדים בגילאי 5-7
@@ -35,13 +39,9 @@ https://klipper.co.il/programs/distance-swim-course
 קליפר ספורט ותזונה - קורס שחייה למרחקים
 קורס מרוכז ללימוד שחייה חתירה
 
-### קליפר טריאתלון ילדים
+### קליפר טריאתלון לילדים ונוער
 https://klipper.co.il/kids-triathlon-club
 קליפר ספורט ותזונה - קליפר טריאתלון לילדים ונוער
-
-### תכנית ביצועים לספורטאי סבולת
-https://klipper.co.il/endurance-performance
-קליפר ספורט ותזונה - תכנית ביצועים לספורטאי סבולת
 
 ### דברו איתנו ותתחילו את המסע הספורטיבי שלכם — קליפר ספורט ותזונה
 https://klipper.co.il/contact
@@ -76,12 +76,12 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text, required)
-  - `email` (email, required)
+  - `name` (text)
+  - `email` (email)
   - `phone` (tel)
   - `topic` (text)
-  - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox)
 
 ---
 
