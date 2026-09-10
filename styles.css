@@ -3386,7 +3386,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   gap: 10px;
   flex-direction: row;
   background: var(--primary);
-  color: var(--text-light);
+  color: #0B1F33;
   text-decoration: none;
   padding: 16px 32px;
   border-radius: 8px;
@@ -3396,6 +3396,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   letter-spacing: 0.02em;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 8px 30px rgba(0,0,0,0.14);
+  background-color: #25D366;
 }
 
 .index-success-stories-section .iss-cta-btn:hover {
@@ -10016,6 +10017,23 @@ html body .kids-triathlon-services-section .schedule-grid { display: grid !impor
 /* zappy-self-heal */
 html body .adult-tri-schedule-section .ats-week { display: grid !important; }
 
+
+.index-hero-section .index-hero-btn-primary,
+.index-hero-section .index-hero-btn-secondary,
+.index-cta-section .index-cta-btn-primary,
+.index-cta-section .index-cta-btn-secondary {
+  background: #25D366 !important;
+  color: var(--primary-color, var(--primary, #0B1F33)) !important;
+  border-color: #25D366 !important;
+}
+
+.index-hero-section .index-hero-btn-primary:hover,
+.index-hero-section .index-hero-btn-secondary:hover,
+.index-cta-section .index-cta-btn-primary:hover,
+.index-cta-section .index-cta-btn-secondary:hover {
+  background: #1EBE5B !important;
+  color: var(--primary-color, var(--primary, #0B1F33)) !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
