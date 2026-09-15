@@ -588,83 +588,6 @@ window.onload = function() {
 })();
 /* ZAPPY_CUSTOM_JS_END:ed769eef4905 */
 
-/* ZAPPY_CUSTOM_JS_START:b6f98ddc0f1e */
-(function () {
-  function __zappyCustomInit() {
-    try {
-(function () {
-  function setupMenu() {
-    var btn = document.getElementById('mobileToggle');
-    var menu = document.getElementById('navMenu');
-    if (!btn || !menu) return;
-
-    // Ensure the nav menu base state is closed on mobile so it doesn't flash open
-    var isMobile = window.innerWidth <= 768;
-
-    var ham = btn.querySelector('.hamburger-icon');
-    var cls = btn.querySelector('.close-icon');
-
-    function render(open) {
-      menu.classList.toggle('active', open);
-      menu.classList.toggle('open', open);
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (ham) ham.style.setProperty('display', open ? 'none' : 'block', 'important');
-      if (cls) cls.style.setProperty('display', open ? 'block' : 'none', 'important');
-      if (document.body) document.body.style.overflow = open ? 'hidden' : '';
-    }
-
-    // Guard so we only bind the click handler once even if setupMenu runs again
-    if (!btn.__zappyMenuBound) {
-      btn.__zappyMenuBound = true;
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var open = menu.classList.contains('active') || menu.classList.contains('open');
-        render(!open);
-      });
-    }
-
-    // Close the menu when a real nav link is clicked
-    var links = menu.querySelectorAll('a');
-    for (var i = 0; i < links.length; i++) {
-      (function (link) {
-        if (link.__zappyLinkBound) return;
-        link.__zappyLinkBound = true;
-        link.addEventListener('click', function () {
-          if (this.getAttribute('href') && this.getAttribute('href') !== '#') {
-            render(false);
-          }
-        });
-      })(links[i]);
-    }
-
-    // Reset to closed state when resizing up to desktop
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 768) {
-        render(false);
-      }
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupMenu);
-  } else {
-    setupMenu();
-  }
-  window.addEventListener('load', setupMenu);
-})();
-    } catch (e) {
-      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
-    }
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
-  } else {
-    __zappyCustomInit();
-  }
-})();
-/* ZAPPY_CUSTOM_JS_END:b6f98ddc0f1e */
-
 /* ZAPPY_CUSTOM_JS_START:8172518bfd8b */
 (function () {
   function __zappyCustomInit() {
@@ -702,6 +625,106 @@ window.onload = function() {
   }
 })();
 /* ZAPPY_CUSTOM_JS_END:8172518bfd8b */
+
+/* ZAPPY_CUSTOM_JS_START:010a3636618c */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  // Robust mobile menu toggle using event delegation on document.
+  // Works even if the button element is later replaced/cloned by other scripts.
+  function getToggle() {
+    return document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+  }
+  function getMenu() {
+    return document.getElementById('navMenu') || document.querySelector('.nav-menu');
+  }
+
+  function render(open) {
+    var menu = getMenu();
+    var btn = getToggle();
+    if (menu) {
+      menu.classList.toggle('active', open);
+      menu.classList.toggle('open', open);
+    }
+    if (btn) {
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var ham = btn.querySelector('.hamburger-icon');
+      var cls = btn.querySelector('.close-icon');
+      if (ham) ham.style.setProperty('display', open ? 'none' : 'block', 'important');
+      if (cls) cls.style.setProperty('display', open ? 'block' : 'none', 'important');
+    }
+    if (document.body) document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function toggleState() {
+    var menu = getMenu();
+    var open = menu && (menu.classList.contains('active') || menu.classList.contains('open'));
+    render(!open);
+  }
+
+  // Delegated click handler — survives button replacement.
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    // Find the toggle button in the click path
+    var btnEl = null;
+    if (t && t.closest) {
+      btnEl = t.closest('#mobileToggle') || t.closest('.mobile-toggle');
+    }
+    if (btnEl) {
+      e.preventDefault();
+      if (e.stopPropagation) e.stopPropagation();
+      toggleState();
+      return;
+    }
+
+    // Close menu when a nav link is clicked
+    var linkEl = t && t.closest ? t.closest('#navMenu a, .nav-menu a') : null;
+    if (linkEl) {
+      var href = linkEl.getAttribute('href');
+      if (href && href !== '#') {
+        render(false);
+      }
+    }
+  });
+
+  // Prime the correct initial state on load, after the built-in script has settled.
+  function prime() {
+    var menu = getMenu();
+    if (menu) {
+      if (window.innerWidth <= 768) {
+        menu.classList.remove('active');
+        menu.classList.remove('open');
+      }
+    }
+    var btn = getToggle();
+    if (btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      var ham = btn.querySelector('.hamburger-icon');
+      var cls = btn.querySelector('.close-icon');
+      if (ham) ham.style.setProperty('display', 'block', 'important');
+      if (cls) cls.style.setProperty('display', 'none', 'important');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(prime, 50); });
+  } else {
+    setTimeout(prime, 50);
+  }
+  window.addEventListener('load', function () { setTimeout(prime, 1200); });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:010a3636618c */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */

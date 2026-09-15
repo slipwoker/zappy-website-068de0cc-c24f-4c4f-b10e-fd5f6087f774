@@ -1655,9 +1655,8 @@ body:has(.zappy-announcement-bar) .navbar:not(.zappy-catalog-menu):not(.mobile-s
     
     console.log('[Navbar] Initializing mobile menu...');
     
-    // Remove any existing event listeners by cloning the button
-    const newToggle = mobileToggle.cloneNode(true);
-    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    // Do NOT clone the button (cloning destroys listeners). Use the existing element instead.
+    const newToggle = mobileToggle;
     
     // Toggle menu handler (shared by click and touchend)
     function handleToggle(e) {
