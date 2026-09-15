@@ -588,6 +588,121 @@ window.onload = function() {
 })();
 /* ZAPPY_CUSTOM_JS_END:ed769eef4905 */
 
+/* ZAPPY_CUSTOM_JS_START:b6f98ddc0f1e */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  function setupMenu() {
+    var btn = document.getElementById('mobileToggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+
+    // Ensure the nav menu base state is closed on mobile so it doesn't flash open
+    var isMobile = window.innerWidth <= 768;
+
+    var ham = btn.querySelector('.hamburger-icon');
+    var cls = btn.querySelector('.close-icon');
+
+    function render(open) {
+      menu.classList.toggle('active', open);
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (ham) ham.style.setProperty('display', open ? 'none' : 'block', 'important');
+      if (cls) cls.style.setProperty('display', open ? 'block' : 'none', 'important');
+      if (document.body) document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    // Guard so we only bind the click handler once even if setupMenu runs again
+    if (!btn.__zappyMenuBound) {
+      btn.__zappyMenuBound = true;
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var open = menu.classList.contains('active') || menu.classList.contains('open');
+        render(!open);
+      });
+    }
+
+    // Close the menu when a real nav link is clicked
+    var links = menu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      (function (link) {
+        if (link.__zappyLinkBound) return;
+        link.__zappyLinkBound = true;
+        link.addEventListener('click', function () {
+          if (this.getAttribute('href') && this.getAttribute('href') !== '#') {
+            render(false);
+          }
+        });
+      })(links[i]);
+    }
+
+    // Reset to closed state when resizing up to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        render(false);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupMenu);
+  } else {
+    setupMenu();
+  }
+  window.addEventListener('load', setupMenu);
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:b6f98ddc0f1e */
+
+/* ZAPPY_CUSTOM_JS_START:8172518bfd8b */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  // Neutralize the legacy conflicting handlers that clone-and-replace the toggle button.
+  // We replace the old elements' handlers by guarding at the document level on the
+  // window 'load' phase is too late to remove listeners already on the button if they
+  // were re-created. Instead, we ensure any freshly cloned button re-binds cleanly.
+  window.addEventListener('load', function () {
+    // Remove any buttons that were cloned by the old scripts in-place listeners
+    // are lost — but our own setupMenu already re-bound on 'load'. To be safe,
+    // re-run a final clean binding with a hard reset of both icon states.
+    var btn = document.getElementById('mobileToggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+    var ham = btn.querySelector('.hamburger-icon');
+    var cls = btn.querySelector('.close-icon');
+    if (ham) ham.style.setProperty('display', 'block', 'important');
+    if (cls) cls.style.setProperty('display', 'none', 'important');
+    menu.classList.remove('active');
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    if (document.body) document.body.style.overflow = '';
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:8172518bfd8b */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
